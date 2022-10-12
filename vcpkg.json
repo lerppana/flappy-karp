@@ -1,0 +1,21 @@
+{
+  "name": "flappy-karp",
+  "version-string": "0.0.3",
+  "dependencies": [
+    {
+      "name": "reload-engine",
+      "features": ["tools"]
+    }
+  ],
+  "features": {
+    "editor": {
+      "description": "editor for engine",
+      "dependencies": [
+        {
+          "name": "reload-engine",
+          "features": ["editor","tools"]
+        }
+      ]
+    }
+  }
+}
