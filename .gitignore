@@ -1,0 +1,95 @@
+# cmake related files
+CMakeSettings.json
+**/CMakeFiles/
+**/CMakeScripts/
+**/CMakeOutput.log
+**/CMakeCache.txt
+**/cmake_install.cmake
+**/*.cmaketools.json
+**/*CTestTestfile.cmake
+
+#  make files
+**/Makefile
+**/*.cbp
+
+# windows visual studio relates files
+**/*.vcxproj
+**/*.vcxproj.filters
+**/*.sln
+**/*.vcxproj
+**/*.vcxproj.filters
+**/*.sln
+**/*.sln.docstates
+**/*.suo
+**/*.user
+**/*.userosscache
+**/*.pdb
+**/*.ilk
+**/*.meta
+
+# windows visual studio related folders
+.vs/
+.vscode/
+.idea/
+**/*.dir/
+
+.DS_Store
+
+
+# build possible folders
+**/Win32/
+**/[Dd]ebug/
+**/[Dd]ebugPublic/
+**/[Rr]elease/
+**/[Rr]eleases/
+**/x64/
+**/x86/
+**/bld/
+**/[Bb]uild/
+**/[Bb]uild-*/
+**/[Bb]in/
+**/[Oo]bj/
+**/[Ll]og/
+
+# generated version file
+projects/engine/source/common/version.cc
+**/*.dna
+.idea
+
+# idea
+cmake-build-*/
+
+compile_commands.json
+
+*.blend1
+*.blend2
+*.spv
+
+# clion project files
+cmake-build-debug/*
+cmake-build-release/*
+.idea/*
+
+# generated cpp files
+*.cc
+
+_3rdParty/*
+
+dna.txt
+out
+
+data
+imgui.ini
+cpp.hint
+
+xcode/
+dist/
+vcpkg_installed/
+.editor/
+
+*.mesh
+*.anim
+*.fbx
+*.glb
+
+**/generated/*
