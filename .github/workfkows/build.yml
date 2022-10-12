@@ -4,3 +4,40 @@ on:
   pull_request:
     branches: [main]
 
+jobs:
+  build:
+    steps:
+      - uses: actions/checkout@v3
+        name: pull sources
+        with:
+          lfs: true
+
+      - uses: actions/checkout@v3
+        name: pull vcpkg
+        with:
+          repository: 'microsoft/vcpkg'
+          ref: '2022.09.27'
+          path: 'vcpkg'
+
+      - name: cache vcpkg downloads. 
+        uses: pat-s/always-upload-cache@v3.0.1
+        with:
+          path: |
+            ${{ github.workspace }}/vcpkg/downloads
+          key: ${{ matrix.os }}-vcpkg-downloads
+
+      - uses: actions/checkout@v2
+        name: pull vulkan sdk
+        with:
+          repository: 'lerppana/vk_sdk_lite'
+          path: ${{ github.workspace }}/${{ matrix.VULKAN_SDK }}
+          ref: ${{ matrix.vulkan_branch }}
+          persist-credentials: false
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: ${{ matrix.os == 'windows-latest' }}
+        name: setup msvc command prompt
+
+      - uses: lukka/get-cmake@latest
+        name: get latest cmake version
+
