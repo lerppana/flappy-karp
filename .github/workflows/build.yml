@@ -70,10 +70,10 @@ jobs:
           
       - name: 'unarchive blender'
         shell: 'pwsh'
-        working-directory: '${{ github.workspace }}/blender'
+        working-directory: '${{ github.workspace }}'
         run: |
           Invoke-WebRequest -Uri "https://www.blender.org/download/release/Blender3.3/blender-3.3.1-windows-x64.zip/" -OutFile "${{ github.workspace }}/blender/blender.zip"
-          Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }}/blender -Force
+          Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }} -Force
           cd blender-*
           echo (Get-Location)
           echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
