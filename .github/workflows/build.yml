@@ -32,6 +32,7 @@ jobs:
       VCPKG_MANIFEST_NO_DEFAULT_FEATURES: OFF
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+      BLENDER_ROOT: 
     steps:
       - uses: actions/checkout@v3
         name: pull sources
@@ -59,7 +60,25 @@ jobs:
           path: ${{ github.workspace }}/${{ matrix.VULKAN_SDK }}
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
-
+          
+      - uses: actions/checkout@v2
+        name: pull blender
+        with:
+          repository: 'lerppana/blender_portable'
+          path: ${{ github.workspace }}/blender
+          ref: ${{ matrix.vulkan_branch }}
+          persist-credentials: false
+          
+      - name: 'unarchive blender'
+        shell: bash
+        run: >
+          cd ${{ github.workspace }}/blender
+          unzip blender.zip
+          cd blender-
+          echo $(pwd)
+          echo "BLENDER_ROOT={${pwd}}" >> $GITHUB_ENV
+          echo ${{ env.BLENDER_ROOT }}
+          
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
         name: setup msvc command prompt
