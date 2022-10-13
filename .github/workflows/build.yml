@@ -64,20 +64,18 @@ jobs:
         name: pull blender
         with:
           repository: 'lerppana/blender_portable'
-          path: ${{ github.workspace }}/blender
+          path: ${{ github.workspace }}/../blender
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
           
       - name: 'unarchive blender'
         shell: 'pwsh'
+        working-directory: '${{ github.workspace }}/../blender'
         run: |
-          cd "${{ github.workspace }}/blender"
-          # zip -F blender.zip --out blender_unsplit.zip
-          Expand-Archive blender.zip
+          Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }}/../blender -Force
           cd blender-*
-          echo $(pwd)
-          echo $pwd
-          echo "BLENDER_ROOT=$pwd" >> $GITHUB_ENV
+          echo (Get-Location)
+          echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
           echo ${{ env.BLENDER_ROOT }}
           
       - uses: ilammy/msvc-dev-cmd@v1
