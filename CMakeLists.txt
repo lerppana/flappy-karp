@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21.2)
 
 project(flappykarp CXX)
 
-find_package(engine REQUIRED)
+find_package(engine CONFIG REQUIRED)
 
 include(engine_create)
 

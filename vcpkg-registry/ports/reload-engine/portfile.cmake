@@ -7,8 +7,8 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF v0.0.144
-    SHA512 38db04c35668708c8760ca031f2c36fef4572543ed40c7e980f5ad523fb37134af2dafb28e162ef1a44f2cb6ae1d605d1978201f1cf0a33e40f70a1e096b2e95
+    REF ae96848b1ea20bf894445979ad9f9f9b2d7a1265
+    SHA512 62d8931c2c5e6fea7ac8adbdc2d7b69cd34e7844f6a703796fcd3b876762b7e3e5576a4c6ac782dad615878ba3ef855754052f07eea8ccce40621d90a016bfa3
     HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
@@ -32,10 +32,19 @@ file(INSTALL
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_plugin.cmake"
         "${SOURCE_PATH}/.cmake/FindVulkan.cmake"
-        DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+        DESTINATION "${CURRENT_PACKAGES_DIR}/share/engine")
 
 vcpkg_cmake_install(ADD_BIN_TO_PATH)
-vcpkg_cmake_config_fixup(CONFIG_PATH "share/cmake/engine")
-vcpkg_copy_tools(TOOL_NAMES launcher reflection resource_compiler resource_compressor asset0.data gltf2_export.py AUTO_CLEAN)
-vcpkg_add_to_path("${CURRENT_PACKAGES_DIR}/share/${PORT}")
+
+vcpkg_cmake_config_fixup(
+        PACKAGE_NAME engine
+        CONFIG_PATH "share/cmake/engine"
+        TOOLS_PATH ${CURRENT_PACKAGES_DIR}/tools/engine)
+
+vcpkg_copy_tools(TOOL_NAMES
+        launcher reflection resource_compiler resource_compressor asset0.data gltf2_export.py
+        DESTINATION ${CURRENT_PACKAGES_DIR}/tools/engine
+        AUTO_CLEAN)
+
+vcpkg_add_to_path("${CURRENT_PACKAGES_DIR}/share/engine")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")

@@ -16,6 +16,24 @@
                             "name": "mesh"
                         }
                     ]
+                },
+                {
+                    "type": "skin",
+                    "key": "models/magikarp.skin.mesh",
+                    "options": [
+                        {
+                            "name": "mesh"
+                        }
+                    ]
+                },
+                {
+                    "type": "animation",
+                    "key": "models/magikarp.splash.anim",
+                    "options": [
+                        {
+                            "name": "splash_action"
+                        }
+                    ]
                 }
             ]
         },
