@@ -32,7 +32,6 @@ jobs:
       VCPKG_MANIFEST_NO_DEFAULT_FEATURES: OFF
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
-      BLENDER_ROOT: 
     steps:
       - uses: actions/checkout@v3
         name: pull sources
@@ -72,7 +71,7 @@ jobs:
       - name: 'unarchive blender'
         shell: 'bash'
         run: >
-          cd ${{ github.workspace }}/blender
+          cd "${{ github.workspace }}/blender"
           unzip blender.zip
           cd blender-*
           echo $(pwd)
