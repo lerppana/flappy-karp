@@ -69,13 +69,14 @@ jobs:
           persist-credentials: false
           
       - name: 'unarchive blender'
-        shell: 'bash'
+        shell: 'pwsh'
         run: >
           cd "${{ github.workspace }}/blender"
           unzip blender.zip
           cd blender-*
           echo $(pwd)
-          echo "BLENDER_ROOT={${pwd}}" >> $GITHUB_ENV
+          echo $pwd
+          echo "BLENDER_ROOT=$pwd" >> $GITHUB_ENV
           echo ${{ env.BLENDER_ROOT }}
           
       - uses: ilammy/msvc-dev-cmd@v1
