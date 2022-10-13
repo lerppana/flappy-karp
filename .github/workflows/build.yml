@@ -72,7 +72,8 @@ jobs:
         shell: 'bash'
         run: |
           cd "${{ github.workspace }}/blender"
-          unzip blender.zip
+          zip -F blender.zip --out blender_unsplit.zip
+          unzip blender_unsplit.zip
           cd blender-*
           echo $(pwd)
           echo $pwd
