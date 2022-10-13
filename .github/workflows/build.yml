@@ -72,7 +72,7 @@ jobs:
         shell: 'pwsh'
         run: >
           cd "${{ github.workspace }}/blender"
-          unzip blender.zip
+          Expand-Archive blender.zip
           cd blender-*
           echo $(pwd)
           echo $pwd
