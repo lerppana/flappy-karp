@@ -69,10 +69,10 @@ jobs:
           persist-credentials: false
           
       - name: 'unarchive blender'
-        shell: 'pwsh'
-        run: >
+        shell: 'bash'
+        run: |
           cd "${{ github.workspace }}/blender"
-          Expand-Archive blender.zip
+          unzip blender.zip
           cd blender-*
           echo $(pwd)
           echo $pwd
