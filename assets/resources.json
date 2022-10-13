@@ -1,0 +1,45 @@
+{
+    "nodes": [
+        {
+            "type": "file",
+            "filename": "scenes/load.scene"
+        },
+        {
+            "type": "model",
+            "filename": "models/magikarp.blend",
+            "outputs": [
+                {
+                    "type": "model",
+                    "key": "models/magikarp.model.mesh",
+                    "options": [
+                        {
+                            "name": "mesh"
+                        }
+                    ]
+                },
+                {
+                    "type": "skin",
+                    "key": "models/magikarp.skin.mesh",
+                    "options": [
+                        {
+                            "name": "mesh"
+                        }
+                    ]
+                },
+                {
+                    "type": "animation",
+                    "key": "models/magikarp.splash.anim",
+                    "options": [
+                        {
+                            "name": "splash_action"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "texture_2d",
+            "filename": "textures/magikarp.png"
+        }
+    ]
+}
