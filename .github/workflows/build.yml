@@ -72,7 +72,7 @@ jobs:
         shell: 'pwsh'
         working-directory: '${{ github.workspace }}/blender'
         run: |
-          Invoke-WebRequest -Uri "https://www.blender.org/download/release/Blender3.3/blender-3.3.1-windows-x64.zip/" -OutFile blender.zip
+          Invoke-WebRequest -Uri "https://www.blender.org/download/release/Blender3.3/blender-3.3.1-windows-x64.zip/" -OutFile "${{ github.workspace }}/blender/blender.zip"
           Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }}/blender -Force
           cd blender-*
           echo (Get-Location)
