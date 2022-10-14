@@ -9,7 +9,6 @@ on:
 env:
   VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
   VCPKG_NUGET_REPOSITORY: 'https://github.com/lerppana/vcpkg-registry.git'
-  GITHUB_AUTHORIZATION_TOKEN: '${{ secrets.PAT }}'
 
 jobs:
   build:
@@ -117,9 +116,11 @@ jobs:
           setapikey "${{ secrets.PAT }}" -Source "https://nuget.pkg.github.com/lerppana/index.json"
 
       - name: cmake config
+        working-directory: ${{ github.workspace }}
+        env:
+          GITHUB_AUTHORIZATION_TOKEN: '${{ secrets.PAT }}'
         run: |
           cmake -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-        working-directory: ${{ github.workspace }}
 
       - name: cmake build
         run: cmake --build build
