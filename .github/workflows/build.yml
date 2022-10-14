@@ -68,7 +68,15 @@ jobs:
           path: ${{ github.workspace }}/blender
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
-                    
+          
+      - name: 'install blender'
+        shell: 'pwsh'
+        working-directory: ${{ github.workspace }}
+        run: |
+          Install-Module -Name SysAdminsFriends
+          dir *.zip | Join-File blender.zip
+          Expand-Archive -Path blender.zip -Force -DestinationPath ${{ github.workspace }}
+  
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
         name: setup msvc command prompt
