@@ -76,6 +76,7 @@ jobs:
           Install-Module -Name SysAdminsFriends -Force
           dir *.zip | Join-File blender.zip
           Expand-Archive -Path blender.zip -Force -DestinationPath .
+          ls -la
           cd blender-
           Write-Host BLENDER_ROOT: (Get-Location)
           echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
