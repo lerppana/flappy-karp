@@ -9,6 +9,7 @@ on:
 env:
   VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
   VCPKG_NUGET_REPOSITORY: 'https://github.com/lerppana/vcpkg-registry.git'
+  VCPKG_KEEP_ENV_VARS: GITHUB_AUTHORIZATION_TOKEN
 
 jobs:
   build:
@@ -32,7 +33,6 @@ jobs:
       VCPKG_MANIFEST_NO_DEFAULT_FEATURES: OFF
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
-      BLENDER_ROOT: ${{ github.workspace }}/blender
     steps:
       - uses: actions/checkout@v3
         name: pull sources
@@ -68,7 +68,20 @@ jobs:
           path: ${{ github.workspace }}/blender
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
-                    
+          
+      - name: 'install blender'
+        shell: 'pwsh'
+        working-directory: ${{ github.workspace }}/blender
+        run: |
+          Install-Module -Name SysAdminsFriends -Force
+          dir *.zip | Join-File blender.zip
+          Expand-Archive -Path blender.zip -Force -DestinationPath .
+          rm *.zip
+          $folder=Get-ChildItem -Filter blender-* | Select -Expand Name
+          cd "${{ github.workspace }}/blender/$folder"
+          Write-Host BLENDER_ROOT: (Get-Location)
+          echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
+  
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
         name: setup msvc command prompt
@@ -104,9 +117,21 @@ jobs:
           setapikey "${{ secrets.PAT }}" -Source "https://nuget.pkg.github.com/lerppana/index.json"
 
       - name: cmake config
+        working-directory: ${{ github.workspace }}
+        env:
+          GITHUB_AUTHORIZATION_TOKEN: '${{ secrets.PAT }}'
         run: |
           cmake -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-        working-directory: ${{ github.workspace }}
 
       - name: cmake build
         run: cmake --build build
+
+      - name: collect build logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-artifact
+          path: |
+            ${{ env.buildDir }}/**/*.log
+            ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
+          retention-days: 2
