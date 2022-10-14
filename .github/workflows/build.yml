@@ -38,6 +38,26 @@ jobs:
         name: pull sources
         with:
           lfs: true
+          
+      - uses: actions/checkout@v2
+        name: pull blender
+        with:
+          repository: 'lerppana/blender_portable'
+          path: ${{ github.workspace }}/blender
+          ref: ${{ matrix.vulkan_branch }}
+          persist-credentials: false
+          
+      - name: 'install blender'
+        shell: 'pwsh'
+        working-directory: ${{ github.workspace }}/blender
+        run: |
+          Install-Module -Name SysAdminsFriends -Force
+          dir *.zip | Join-File blender.zip
+          Expand-Archive -Path blender.zip -Force -DestinationPath .
+          Get-ChildItem
+          cd blender-
+          Write-Host BLENDER_ROOT: (Get-Location)
+          echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
 
       - uses: actions/checkout@v3
         name: pull vcpkg
@@ -60,26 +80,6 @@ jobs:
           path: ${{ github.workspace }}/${{ matrix.VULKAN_SDK }}
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
-          
-      - uses: actions/checkout@v2
-        name: pull blender
-        with:
-          repository: 'lerppana/blender_portable'
-          path: ${{ github.workspace }}/blender
-          ref: ${{ matrix.vulkan_branch }}
-          persist-credentials: false
-          
-      - name: 'install blender'
-        shell: 'pwsh'
-        working-directory: ${{ github.workspace }}/blender
-        run: |
-          Install-Module -Name SysAdminsFriends -Force
-          dir *.zip | Join-File blender.zip
-          Expand-Archive -Path blender.zip -Force -DestinationPath .
-          ls -la
-          cd blender-
-          Write-Host BLENDER_ROOT: (Get-Location)
-          echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
   
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
