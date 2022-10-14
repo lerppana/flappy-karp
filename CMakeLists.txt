@@ -14,11 +14,13 @@ engine_create_plugin(flappykarp
             src/di/module_builder.cpp
             src/di/plugin.cpp
             src/scenes/load.cpp
+            src/systems/player_controller.cpp
 
         INCLUDE_FILES
         src/di/module_builder.hpp
             src/di/plugin.hpp
             src/scenes/load.hpp
+            src/systems/player_controller.cpp
             src/tags.hpp
         )
 
