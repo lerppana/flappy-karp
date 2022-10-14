@@ -72,7 +72,7 @@ jobs:
           
       - name: 'install blender'
         shell: 'pwsh'
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/blender
         run: |
           $ProgressPreference = "SilentlyContinue"
           Install-Module -Name SysAdminsFriends -Force
