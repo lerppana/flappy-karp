@@ -70,10 +70,11 @@ jobs:
           persist-credentials: false
           
       - name: 'unarchive blender'
-        shell: 'pwsh'
+        shell: 'bash'
         working-directory: '${{ github.workspace }}/blender_zip'
         run: |
-          Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }} -Force
+          unzip blender.zip -d ${{ github.workspace }}
+          # Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }} -Force
           
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
