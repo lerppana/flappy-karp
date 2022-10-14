@@ -70,7 +70,7 @@ jobs:
           persist-credentials: false
           
       - name: 'unarchive blender'
-        shell: 'bash'
+        shell: 'pwsh'
         working-directory: '${{ github.workspace }}/blender_zip'
         run: |
           # unzip blender.zip -d ${{ github.workspace }}
