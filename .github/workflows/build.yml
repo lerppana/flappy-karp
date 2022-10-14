@@ -76,7 +76,7 @@ jobs:
           Install-Module -Name SysAdminsFriends -Force
           dir *.zip | Join-File blender.zip
           Expand-Archive -Path blender.zip -Force -DestinationPath .
-          Get-ChildItem
+          rm *.zip
           $folder=Get-ChildItem -Filter blender-* | Select -Expand Name
           cd "${{ github.workspace }}/blender/$folder"
           Write-Host BLENDER_ROOT: (Get-Location)
