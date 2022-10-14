@@ -55,7 +55,8 @@ jobs:
           dir *.zip | Join-File blender.zip
           Expand-Archive -Path blender.zip -Force -DestinationPath .
           Get-ChildItem
-          cd blender-
+          $folder=Get-ChildItem -Filter blender-* | Select -Expand Name
+          cd "${{ github.workspace }}/$folder"
           Write-Host BLENDER_ROOT: (Get-Location)
           echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
 
