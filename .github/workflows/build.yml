@@ -120,7 +120,7 @@ jobs:
         env:
           GITHUB_AUTHORIZATION_TOKEN: '${{ secrets.PAT }}'
         run: |
-          cmake -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+          cmake -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_ENV_PASSTHROUGH=GITHUB_AUTHORIZATION_TOKEN
 
       - name: cmake build
         run: cmake --build build
