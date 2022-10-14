@@ -73,11 +73,10 @@ jobs:
         shell: 'pwsh'
         working-directory: ${{ github.workspace }}/blender
         run: |
-          $ProgressPreference = "SilentlyContinue"
           Install-Module -Name SysAdminsFriends -Force
           dir *.zip | Join-File blender.zip
-          Expand-Archive -Path blender.zip -Force -DestinationPath ${{ github.workspace }}
-          cd "${{ github.workspace }}/blender-"
+          Expand-Archive -Path blender.zip -Force
+          cd blender-
           Write-Host BLENDER_ROOT: (Get-Location)
           echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
   
