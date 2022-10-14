@@ -125,3 +125,13 @@ jobs:
 
       - name: cmake build
         run: cmake --build build
+
+      - name: collect build logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-artifact
+          path: |
+            ${{ env.buildDir }}/**/*.log
+            ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
+          retention-days: 2
