@@ -32,6 +32,7 @@ jobs:
       VCPKG_MANIFEST_NO_DEFAULT_FEATURES: OFF
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+      BLENDER_ROOT: ${{ github.workspace }}/blender
     steps:
       - uses: actions/checkout@v3
         name: pull sources
@@ -60,24 +61,19 @@ jobs:
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
           
-      # - uses: actions/checkout@v2
-      #   name: pull blender
-      #   with:
-      #     repository: 'lerppana/blender_portable'
-      #     path: ${{ github.workspace }}/blender
-      #     ref: ${{ matrix.vulkan_branch }}
-      #     persist-credentials: false
+      - uses: actions/checkout@v2
+        name: pull blender
+        with:
+          repository: 'lerppana/blender_portable'
+          path: ${{ github.workspace }}/blender_zip
+          ref: ${{ matrix.vulkan_branch }}
+          persist-credentials: false
           
       - name: 'unarchive blender'
         shell: 'pwsh'
-        working-directory: '${{ github.workspace }}'
+        working-directory: '${{ github.workspace }}/blender_zip'
         run: |
-          Invoke-WebRequest -Uri "https://www.blender.org/download/release/Blender3.3/blender-3.3.1-windows-x64.zip/" -OutFile "${{ github.workspace }}/blender.zip"
           Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }} -Force
-          cd blender-*
-          echo (Get-Location)
-          echo "BLENDER_ROOT=$(Get-Location)" >> $GITHUB_ENV
-          echo ${{ env.BLENDER_ROOT }}
           
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
