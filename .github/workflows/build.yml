@@ -65,17 +65,10 @@ jobs:
         name: pull blender
         with:
           repository: 'lerppana/blender_portable'
-          path: ${{ github.workspace }}/blender_zip
+          path: ${{ github.workspace }}/blender
           ref: ${{ matrix.vulkan_branch }}
           persist-credentials: false
-          
-      - name: 'unarchive blender'
-        shell: 'pwsh'
-        working-directory: '${{ github.workspace }}/blender_zip'
-        run: |
-          # unzip blender.zip -d ${{ github.workspace }}
-          Expand-Archive -Path blender.zip -DestinationPath ${{ github.workspace }} -Force
-          
+                    
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os == 'windows-latest' }}
         name: setup msvc command prompt
