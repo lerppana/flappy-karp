@@ -28,7 +28,6 @@ jobs:
             generator: Ninja
             mono: ''
     env:
-      VULKAN_SDK: ${{ github.workspace }}/${{ matrix.VULKAN_SDK }}
       VCPKG_FEATURE_FLAGS: manifests,versions,registries
       VCPKG_MANIFEST_NO_DEFAULT_FEATURES: OFF
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
@@ -54,7 +53,7 @@ jobs:
           key: ${{ matrix.os }}-vcpkg-downloads
 
       - name: Install Vulkan SDK
-        uses: humbletim/install-vulkan-sdk@v1.1.1
+        uses: lerppana/install-vulkan-sdk@v1.1.1
         with:
           version: latest
           cache: true
