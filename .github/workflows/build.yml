@@ -53,7 +53,7 @@ jobs:
           key: ${{ matrix.os }}-vcpkg-downloads
 
       - name: Install Vulkan SDK
-        uses: lerppana/install-vulkan-sdk@v1.1.1
+        uses: lerppana/install-vulkan-sdk@latest
         with:
           version: latest
           cache: true
