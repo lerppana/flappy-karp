@@ -53,13 +53,11 @@ jobs:
             ${{ github.workspace }}/vcpkg/downloads
           key: ${{ matrix.os }}-vcpkg-downloads
 
-      - uses: actions/checkout@v2
-        name: pull vulkan sdk
+      - name: Install Vulkan SDK
+        uses: humbletim/install-vulkan-sdk@v1.1.1
         with:
-          repository: 'lerppana/vk_sdk_lite'
-          path: ${{ github.workspace }}/${{ matrix.VULKAN_SDK }}
-          ref: ${{ matrix.vulkan_branch }}
-          persist-credentials: false
+          version: latest
+          cache: true
           
       - uses: actions/checkout@v2
         name: pull blender
