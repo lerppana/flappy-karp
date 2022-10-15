@@ -52,11 +52,7 @@ jobs:
             ${{ github.workspace }}/vcpkg/downloads
           key: ${{ matrix.os }}-vcpkg-downloads
 
-      - name: Install Vulkan SDK
-        uses: lerppana/install-vulkan-sdk@latest
-        with:
-          version: latest
-          cache: true
+      - uses: lerppana/install_vulkan_sdk@main
           
       - uses: actions/checkout@v2
         name: pull blender
