@@ -127,10 +127,9 @@ jobs:
           retention-days: 2
 
       - name: collect build logs
-        if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: windows-err-logs
+          name: windows-build-logs
           path: |
             ${{ env.buildDir }}/**/*.log
             ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
