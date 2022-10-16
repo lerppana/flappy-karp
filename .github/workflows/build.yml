@@ -119,11 +119,18 @@ jobs:
       - name: cmake build
         run: cmake --build build
 
+      - name: save build output
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-output
+          path: dist/Release
+          retention-days: 2
+
       - name: collect build logs
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: windows-artifact
+          name: windows-err-logs
           path: |
             ${{ env.buildDir }}/**/*.log
             ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
