@@ -1,7 +1,7 @@
 vcpkg_check_linkage(ONLY_DYNAMIC_LIBRARY)
 
 if (NOT DEFINED ENV{GITHUB_AUTHORIZATION_TOKEN})
-    message(FATAL_ERROR "environment variable GITHUB_AUTHORIZATION_TOKEN must be defined")
+    message(STATUS "Environment variable GITHUB_AUTHORIZATION_TOKEN is not defined, make sure you have environment that is capable to logging in by itself")
 endif()
 
 vcpkg_from_github(
