@@ -27,6 +27,7 @@ vcpkg_cmake_configure(
 )
 
 file(INSTALL
+        "${SOURCE_PATH}/.cmake/copy_dll_to.cmake"
         "${SOURCE_PATH}/.cmake/date_to_version.cmake"
         "${SOURCE_PATH}/.cmake/engine_create.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
