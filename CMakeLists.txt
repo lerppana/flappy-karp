@@ -26,7 +26,7 @@ engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
 
-install(TARGET ${PROJECT_NAME} 
+install(TARGETS ${PROJECT_NAME} 
     RUNTIME_DEPENDENCIES
     PRE_EXCLUDE_REGEXES "api-ms-" "ext-ms-"
     POST_EXCLUDE_REGEXES ".*system32/.*\\.dll"
