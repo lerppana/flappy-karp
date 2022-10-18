@@ -25,13 +25,3 @@ engine_create_plugin(flappykarp
 engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/engine/launcher)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
-
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME_DEPENDENCIES
-    PRE_EXCLUDE_REGEXES "api-ms-" "ext-ms-"
-    POST_EXCLUDE_REGEXES ".*system32/.*\\.dll"
-    DIRECTORIES "$ENV{VULKAN_SDK}/lib;${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib"
-    FRAMEWORK DESTINATION install
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION bin
-)
