@@ -4,7 +4,9 @@
   "dependencies": [
     {
       "name": "reload-engine",
-      "features": ["tools"]
+      "features": [
+        "tools"
+      ]
     }
   ],
   "features": {
@@ -13,7 +15,10 @@
       "dependencies": [
         {
           "name": "reload-engine",
-          "features": ["editor","tools"]
+          "features": [
+            "editor",
+            "tools"
+          ]
         }
       ]
     }

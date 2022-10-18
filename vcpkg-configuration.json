@@ -1,21 +1,22 @@
 {
   "default-registry": {
     "kind": "git",
-    "baseline": "6ca56aeb457f033d344a7106cb3f9f1abf8f4e98",
+    "baseline": "f4b262b259145adb2ab0116a390b08642489d32b",
     "repository": "https://github.com/microsoft/vcpkg"
   },
   "registries": [
     {
       "kind": "filesystem",
       "path": "vcpkg-registry",
-      "packages": [ "reload-engine" ]
+      "packages": []
     },
     {
       "kind": "git",
-      "baseline": "37750597f8054113ff92e36357319a07d3a2d58f",
+      "baseline": "b67329ed438b716444bf4f74705fcbe0b65f7736",
       "repository": "https://github.com/lerppana/vcpkg-registry",
       "packages": [
-        "hypodermic"
+        "hypodermic",
+        "reload-engine"
       ]
     }
   ]
