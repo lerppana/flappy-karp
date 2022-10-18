@@ -127,6 +127,7 @@ jobs:
           retention-days: 2
 
       - name: collect build logs
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: windows-build-logs
