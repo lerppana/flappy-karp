@@ -7,9 +7,9 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF 20acd43bc814b35f62e02e18c59727229bb13549 # v0.0.148
+    REF 68e41a616bb39c3a6f3dae1ba06399ffbba1fba4 # v0.0.148
     SHA512 4638a3a74559fa5d2ac04db28f61fd002d19513bef0f85bfa9a5cb11a63622baa14b53ab7db955b9683162fb4b880697336205d53a2a97fded855568a68d7970
-    HEAD_REF remove-custom-dll-download
+    HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
 
