@@ -1,14 +1,14 @@
 vcpkg_check_linkage(ONLY_DYNAMIC_LIBRARY)
 
 if (NOT DEFINED ENV{GITHUB_AUTHORIZATION_TOKEN})
-    message(FATAL_ERROR "environment variable GITHUB_AUTHORIZATION_TOKEN must be defined")
+    message(STATUS "Environment variable GITHUB_AUTHORIZATION_TOKEN is not defined, make sure you have environment that is capable to logging in by itself")
 endif()
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF ae96848b1ea20bf894445979ad9f9f9b2d7a1265
-    SHA512 62d8931c2c5e6fea7ac8adbdc2d7b69cd34e7844f6a703796fcd3b876762b7e3e5576a4c6ac782dad615878ba3ef855754052f07eea8ccce40621d90a016bfa3
+    REF 68e41a616bb39c3a6f3dae1ba06399ffbba1fba4 # v0.0.148
+    SHA512 4638a3a74559fa5d2ac04db28f61fd002d19513bef0f85bfa9a5cb11a63622baa14b53ab7db955b9683162fb4b880697336205d53a2a97fded855568a68d7970
     HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
@@ -27,6 +27,7 @@ vcpkg_cmake_configure(
 )
 
 file(INSTALL
+        "${SOURCE_PATH}/.cmake/copy_dll_to.cmake"
         "${SOURCE_PATH}/.cmake/date_to_version.cmake"
         "${SOURCE_PATH}/.cmake/engine_create.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
@@ -42,9 +43,12 @@ vcpkg_cmake_config_fixup(
         TOOLS_PATH ${CURRENT_PACKAGES_DIR}/tools/engine)
 
 vcpkg_copy_tools(TOOL_NAMES
-        launcher reflection resource_compiler resource_compressor asset0.data gltf2_export.py
+        launcher reflection resource_compiler resource_compressor
         DESTINATION ${CURRENT_PACKAGES_DIR}/tools/engine
         AUTO_CLEAN)
+
+file(RENAME "${CURRENT_PACKAGES_DIR}/bin/asset0.data" "${CURRENT_PACKAGES_DIR}/tools/engine/asset0.data")
+file(RENAME "${CURRENT_PACKAGES_DIR}/bin/gltf2_export.py" "${CURRENT_PACKAGES_DIR}/tools/engine/gltf2_export.py")
 
 vcpkg_add_to_path("${CURRENT_PACKAGES_DIR}/share/engine")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
