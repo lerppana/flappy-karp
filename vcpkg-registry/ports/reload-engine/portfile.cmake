@@ -1,7 +1,7 @@
 vcpkg_check_linkage(ONLY_DYNAMIC_LIBRARY)
 
 if (NOT DEFINED ENV{GITHUB_AUTHORIZATION_TOKEN})
-    message(FATAL_ERROR "environment variable GITHUB_AUTHORIZATION_TOKEN must be defined")
+    message(STATUS "Environment variable GITHUB_AUTHORIZATION_TOKEN is not defined, make sure you have environment that is capable to logging in by itself")
 endif()
 
 vcpkg_from_github(
@@ -27,6 +27,7 @@ vcpkg_cmake_configure(
 )
 
 file(INSTALL
+        "${SOURCE_PATH}/.cmake/copy_dll_to.cmake"
         "${SOURCE_PATH}/.cmake/date_to_version.cmake"
         "${SOURCE_PATH}/.cmake/engine_create.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
@@ -42,9 +43,12 @@ vcpkg_cmake_config_fixup(
         TOOLS_PATH ${CURRENT_PACKAGES_DIR}/tools/engine)
 
 vcpkg_copy_tools(TOOL_NAMES
-        launcher reflection resource_compiler resource_compressor asset0.data gltf2_export.py
+        launcher reflection resource_compiler resource_compressor
         DESTINATION ${CURRENT_PACKAGES_DIR}/tools/engine
         AUTO_CLEAN)
+
+file(RENAME "${CURRENT_PACKAGES_DIR}/bin/asset0.data" "${CURRENT_PACKAGES_DIR}/tools/engine/asset0.data")
+file(RENAME "${CURRENT_PACKAGES_DIR}/bin/gltf2_export.py" "${CURRENT_PACKAGES_DIR}/tools/engine/gltf2_export.py")
 
 vcpkg_add_to_path("${CURRENT_PACKAGES_DIR}/share/engine")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
