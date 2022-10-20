@@ -3,9 +3,17 @@
 #include "flappykarp_export.h"
 
 // engine
+#include <component/basic_material.hpp>
+#include <component/mesh_filter.hpp>
+#include <component/physics_3d.hpp>
+#include <component/transform.hpp>
+#include <core/object_manager.hpp>
 #include <core/scene.hpp>
+#include <core/system.hpp>
+#include <core/view.hpp>
 #include <engine/plugin.hpp>
 #include <plugin.hpp>
+#include <resource/resource_loader.hpp>
 #include <system/sdl_input_manager.hpp>
 #include <vk/imgui_context.hpp>
 
