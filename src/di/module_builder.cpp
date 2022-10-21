@@ -1,5 +1,6 @@
 #include "di/module_builder.hpp"
 
+#include "scenes/game.hpp"
 #include "scenes/load.hpp"
 #include "systems/infinite_pipe_scroller.hpp"
 #include "systems/player_controller.hpp"
@@ -11,6 +12,8 @@ namespace lerppana::flappykarp
 {
     module_builder::module_builder()
     {
+        registerType<scenes::game>().as<core::scene>().asSelf().singleInstance();
+
         registerType<scenes::load>().as<core::scene>().asSelf().singleInstance();
 
         registerType<systems::infinite_pipe_scroller>().as<core::system>().asSelf().singleInstance();
