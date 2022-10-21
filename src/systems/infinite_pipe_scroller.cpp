@@ -6,11 +6,8 @@ namespace lerppana::flappykarp::systems
 {
     void infinite_pipe_scroller::started(core::scene& scene)
     {
-        resource_loader->request_load<resource::mesh_resource>("fs1://models/pipe.model.mesh");
-        resource_loader->request_load<resource::texture_resource>("fs1://textures/pipe.png");
-
-        // this is ugly hack
-        while (!resource_loader->idle()) {};
+        resource_loader->get<resource::vk_mesh_resource>("fs1://models/pipe.model.mesh");
+        resource_loader->get<resource::texture_resource>("fs1://textures/pipe.png");
 
         for (auto i = 0u; i < pipe_column_count; i++)
         {
@@ -30,13 +27,20 @@ namespace lerppana::flappykarp::systems
                         return;
                     }
 
-                    // btTransform tr{};
-                    auto& tr = obj->getWorldTransform();
+                    btTransform tr(obj->getWorldTransform());
                     auto& origin = tr.getOrigin();
-                    origin.setX(origin.getX() + dt.count() * pipe_speed);
-                    obj->setWorldTransform(tr);
+                    if (tr.getOrigin().getX() >= 15.f)
+                    {
+                        origin.setX(origin.getX() - pipe_column_offset * (pipe_column_count));
+                    }
+                    else
+                    {
+                        origin.setX(origin.getX() + dt.count() * pipe_speed);
+                    }
 
-                    obj->setLinearVelocity(btVector3{-1.f, 0.f, 0.f});
+
+                    obj->setWorldTransform(tr);
+                    obj->getMotionState()->setWorldTransform(tr);
                 });
     }
 
@@ -59,12 +63,12 @@ namespace lerppana::flappykarp::systems
                 entity,
                 component::mesh_filter { .mesh = "fs1://models/pipe.model.mesh" });
 
-        scene.objects->add_component<component::physics_3d>(
+        auto& physics_component = scene.objects->add_component<component::physics_3d>(
                 entity,
                 component::physics_3d{
-                    .physics_body_type = engine::component::physics_body_type::rigid_body,
                     .collision_object_type = physics::collision_object_type::static_triangle_shape,
-                    .mesh_key = "fs1://models/pipe.model.mesh"
+                    .mesh_key = "fs1://models/pipe.model.mesh",
+                    .activation_state = engine::physics::activation_state::disable_deactivation,
                 });
 
         scene.objects->add_component<components::pipe>(entity);

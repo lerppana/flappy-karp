@@ -23,7 +23,7 @@ namespace lerppana::flappykarp::systems
     private:
         std::shared_ptr<resource::resource_loader> resource_loader;
 
-        uint32_t pipe_column_count = 3u;
+        uint32_t pipe_column_count = 5u;
         float pipe_column_offset = 8.0f;
         float pipe_distance = 4.0f;
         float pipe_speed = 0.001f;
