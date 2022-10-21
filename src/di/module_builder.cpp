@@ -15,6 +15,8 @@ namespace lerppana::flappykarp
 
         registerType<systems::infinite_pipe_scroller>().as<core::system>().asSelf().singleInstance();
 
+        registerType<systems::infinite_pipe_scroller>().as<core::system>().asSelf().singleInstance();
+
         registerType<systems::player_controller>().as<core::system>().asSelf().singleInstance();
 
         this->addRegistrations(lerppana::generated::generated_builder{});
