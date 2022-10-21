@@ -2,7 +2,7 @@
     "nodes": [
         {
             "type": "file",
-            "filename": "scenes/load.scene"
+            "filename": "scenes/game.scene"
         },
         {
             "type": "model",
