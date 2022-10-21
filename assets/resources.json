@@ -40,6 +40,25 @@
         {
             "type": "texture_2d",
             "filename": "textures/magikarp.png"
+        },
+        {
+            "type": "model",
+            "filename": "models/pipe.blend",
+            "outputs": [
+                {
+                    "type": "model",
+                    "key": "models/pipe.model.mesh",
+                    "options": [
+                        {
+                            "name": "mesh"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "texture_2d",
+            "filename": "textures/pipe.png"
         }
     ]
 }
