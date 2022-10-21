@@ -24,13 +24,15 @@ namespace lerppana::flappykarp::systems
         std::shared_ptr<resource::resource_loader> resource_loader;
 
         uint32_t pipe_column_count = 5u;
-        float pipe_column_offset = 8.0f;
-        float pipe_distance = 4.0f;
-        float pipe_speed = 0.001f;
+        float pipe_column_offset = 8.f;
+        float pipe_distance = 2.f;
+        float pipe_speed = 0.0015f;
+        float pipe_start_offset = 14.f;
 
         void m_generate_pipe(
                 core::scene& scene,
                 uint32_t i,
-                pipe_direction direction);
+                pipe_direction direction,
+                float y_offset);
     };
 }
