@@ -9,6 +9,11 @@ namespace lerppana::flappykarp::systems
             return;
         }
 
+        if (game_state->state != game_state::running)
+        {
+            return;
+        }
+
         auto& physics_component = scene.objects->get_tagged_component<component::physics_3d>(core::tag::player_1);
 
         auto splash_reload_delay = std::chrono::milliseconds (400);
