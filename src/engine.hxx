@@ -11,10 +11,12 @@
 #include <core/scene.hpp>
 #include <core/system.hpp>
 #include <core/view.hpp>
+#include <imgui.hpp>
 #include <engine/plugin.hpp>
 #include <plugin.hpp>
 #include <resource/resource_loader.hpp>
 #include <system/sdl_input_manager.hpp>
+#include <vk/font_manager.hpp>
 #include <vk/imgui_context.hpp>
 
 // editor
