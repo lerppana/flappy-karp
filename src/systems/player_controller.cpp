@@ -2,7 +2,6 @@
 
 namespace lerppana::flappykarp::systems
 {
-
     void player_controller::fixed_update(core::scene& scene, core::dt_t dt)
     {
         if (!scene.objects->tagged_has_component<component::physics_3d>(core::tag::player_1))
@@ -18,7 +17,7 @@ namespace lerppana::flappykarp::systems
         {
             last_splash = std::chrono::system_clock::now();
             auto* rigid_body = (btRigidBody*)physics_component.get();
-            rigid_body->setLinearVelocity({0.f, 8.0f, 0.f});
+            rigid_body->setLinearVelocity({0.f, jump_force, 0.f});
             rigid_body->setAngularVelocity(
                     {
                         util::random_value(-1.0f, 1.f),

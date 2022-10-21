@@ -18,6 +18,7 @@ namespace lerppana::flappykarp::systems
     private:
         std::shared_ptr<engine::system::sdl_input_manager> input_manager;
 
+        float jump_force = 6.0f;
         std::chrono::system_clock::time_point last_splash = std::chrono::system_clock::time_point::min();
     };
 }
