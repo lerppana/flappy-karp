@@ -1,5 +1,5 @@
 {
-    "startup_scene":"fs1://scenes/load.scene",
+    "startup_scene":"fs1://scenes/game.scene",
     "name": "flappy karp",
     "version_string":"0.0.0",
     "dynamic_libraries": ["flappykarp"],
