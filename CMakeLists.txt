@@ -14,6 +14,7 @@ engine_create_plugin(flappykarp
             src/di/module_builder.cpp
             src/di/plugin.cpp
             src/scenes/game.cpp
+            src/scenes/load.cpp
             src/systems/infinite_pipe_scroller.hpp
             src/systems/player_controller.cpp
 
@@ -22,6 +23,7 @@ engine_create_plugin(flappykarp
             src/di/module_builder.hpp
             src/di/plugin.hpp
             src/scenes/game.hpp
+            src/scenes/load.hpp
             src/systems/infinite_pipe_scroller.cpp
             src/systems/player_controller.cpp
             src/tags.hpp
