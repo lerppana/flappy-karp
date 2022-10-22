@@ -137,4 +137,5 @@ jobs:
           path: |
             ${{ env.buildDir }}/**/*.log
             ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
+            ${{ github.workspace }}/build/**/*.log
           retention-days: 2
