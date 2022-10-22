@@ -9,7 +9,7 @@ namespace lerppana::flappykarp::scenes
 
     void game::reset()
     {
-        game_state->state = game_state::running;
+        game_statesm = game_state::running;
         score = 0.0f;
         pipe_scroller->reset_system(*this);
     }
@@ -57,7 +57,7 @@ namespace lerppana::flappykarp::scenes
                 [&](const physics::contact_result_args& args)
                 {
                     common::console::log("hit!");
-                    game_state->state = game_state::stopped;
+                    game_state = game_state::stopped;
                 });
     }
 

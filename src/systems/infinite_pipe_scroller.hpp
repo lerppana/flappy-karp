@@ -15,10 +15,8 @@ namespace lerppana::flappykarp::systems
     struct infinite_pipe_scroller : core::system
     {
         explicit infinite_pipe_scroller(
-                std::shared_ptr<resource::resource_loader> resource_loader,
-                std::shared_ptr<global_game_state> game_state) :
-                resource_loader(std::move(resource_loader)),
-                game_state(std::move(game_state))
+                std::shared_ptr<resource::resource_loader> resource_loader),
+                resource_loader(std::move(resource_loader))
         {}
 
         void reset_system(core::scene& scene);
@@ -29,7 +27,6 @@ namespace lerppana::flappykarp::systems
 
     private:
         std::shared_ptr<resource::resource_loader> resource_loader;
-        std::shared_ptr<global_game_state> game_state;
 
         uint32_t pipe_column_count = 5u;
         float pipe_column_offset = 8.f;

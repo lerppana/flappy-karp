@@ -2,17 +2,13 @@
 
 #include <engine.hxx>
 
-#include "game_state.hpp"
-
 namespace lerppana::flappykarp::systems
 {
     struct player_controller : core::system
     {
         explicit player_controller(
-                std::shared_ptr<engine::system::sdl_input_manager> input_manager,
-                std::shared_ptr<global_game_state> game_state) :
-                input_manager(std::move(input_manager)),
-                game_state(std::move(game_state))
+                std::shared_ptr<engine::system::sdl_input_manager> input_manager) :
+                input_manager(std::move(input_manager))
         {
         }
 
@@ -22,7 +18,6 @@ namespace lerppana::flappykarp::systems
 
     private:
         std::shared_ptr<engine::system::sdl_input_manager> input_manager;
-        std::shared_ptr<global_game_state> game_state;
 
         float jump_force = 6.0f;
         std::chrono::system_clock::time_point last_splash = std::chrono::system_clock::time_point::min();

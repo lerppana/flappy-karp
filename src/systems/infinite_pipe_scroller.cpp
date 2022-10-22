@@ -14,11 +14,6 @@ namespace lerppana::flappykarp::systems
 
     void infinite_pipe_scroller::fixed_update(core::scene& scene, core::dt_t dt)
     {
-        if (game_state->state != game_state::running)
-        {
-            return;
-        }
-
         auto random_y_offset = util::random_value(-2.0f, 6.0f);
         core::view<component::physics_3d, components::pipe>(scene.objects).for_each(
                 [&](auto entity, auto& physics, auto& _)

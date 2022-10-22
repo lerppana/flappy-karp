@@ -7,6 +7,12 @@
 
 namespace lerppana::flappykarp::scenes
 {
+    enum game_state : uint8_t
+    {
+        stopped,
+        running
+    }
+
     struct FLAPPYKARP_EXPORT game : core::scene
     {
         explicit game(
@@ -40,5 +46,7 @@ namespace lerppana::flappykarp::scenes
         void m_gui_draw_score();
 
         void m_gui_draw_reset_button();
+
+        enum game_state game_state = game_state::stopped;
     };
 }
