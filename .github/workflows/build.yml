@@ -120,7 +120,7 @@ jobs:
         run: cmake --build build
 
       - name: cmake install
-        run: cmake --install . --prefix=${{ github.workspace }}/install
+        run: cmake --install . --prefix=${{ github.workspace }}/install -v
 
       - name: save build output
         uses: actions/upload-artifact@v2
