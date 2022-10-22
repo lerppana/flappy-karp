@@ -120,13 +120,13 @@ jobs:
         run: cmake --build build
 
       - name: cmake install
-        run: cmake --install . --prefix=install --config Release
+        run: cmake --install . --prefix=${{ github.workspace }}/install --config Release
 
       - name: save build output
         uses: actions/upload-artifact@v2
         with:
           name: windows-output
-          path: dist/Release
+          path: ${{ github.workspace }}/install
           retention-days: 2
 
       - name: collect build logs
