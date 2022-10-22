@@ -6,8 +6,12 @@ namespace lerppana::flappykarp::systems
 {
     struct player_controller : core::system
     {
-        explicit player_controller(std::shared_ptr<engine::system::sdl_input_manager> input_manager) :
-            input_manager(std::move(input_manager))
+        // todo replace this with enabled state in system
+        bool enabled = false;
+
+        explicit player_controller(
+                std::shared_ptr<engine::system::sdl_input_manager> input_manager) :
+                input_manager(std::move(input_manager))
         {
         }
 

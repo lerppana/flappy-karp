@@ -4,6 +4,8 @@ namespace lerppana::flappykarp::systems
 {
     void player_controller::fixed_update(core::scene& scene, core::dt_t dt)
     {
+        if (!enabled) return; 
+        
         if (!scene.objects->tagged_has_component<component::physics_3d>(core::tag::player_1))
         {
             return;
