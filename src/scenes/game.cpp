@@ -9,9 +9,20 @@ namespace lerppana::flappykarp::scenes
 
     void game::reset()
     {
-        game_statesm = game_state::running;
+        auto player_physics = objects->get_tagged_component<component::physics_3d>(core::tag::player_1);
+        auto* rigid_body = (btRigidBody*)player_physics.get();
+        auto& tr = rigid_body->getWorldTransform();
+        tr.setOrigin(btVector3{5.f, 8.f, 0.f});
+        btQuaternion euler;
+        euler.setEuler(glm::pi<float>(), 0.f, 0.f);
+        tr.setRotation(euler);
+        rigid_body->setWorldTransform(tr);
+
+        game_state = game_state::running;
         score = 0.0f;
         pipe_scroller->reset_system(*this);
+        pipe_scroller->enabled = true;
+        player_controller->enabled = true;
     }
 
     void game::start()
@@ -35,7 +46,10 @@ namespace lerppana::flappykarp::scenes
 
     void game::update(core::dt_t dt)
     {
-        score += (dt.count()/1000.0f);
+        if (game_state == running)
+        {
+            score += (dt.count()/1000.0f);
+        }
     }
 
     void game::m_detect_player_hits()
@@ -58,6 +72,8 @@ namespace lerppana::flappykarp::scenes
                 {
                     common::console::log("hit!");
                     game_state = game_state::stopped;
+                    pipe_scroller->enabled = false;
+                    player_controller->enabled = false;
                 });
     }
 
@@ -77,6 +93,11 @@ namespace lerppana::flappykarp::scenes
 
     void game::m_gui_draw_reset_button()
     {
+        if (game_state != game_state::stopped)
+        {
+            return;
+        }
+
         auto* font = font_manager->get_font("thaleah");
         ImGui::SetWindowFontScale(1.0f);
         ImGui::FontScope font_scope{font};

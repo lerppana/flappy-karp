@@ -14,6 +14,8 @@ namespace lerppana::flappykarp::systems
 
     void infinite_pipe_scroller::fixed_update(core::scene& scene, core::dt_t dt)
     {
+        if (!enabled) return;
+
         auto random_y_offset = util::random_value(-2.0f, 6.0f);
         core::view<component::physics_3d, components::pipe>(scene.objects).for_each(
                 [&](auto entity, auto& physics, auto& _)
@@ -61,7 +63,8 @@ namespace lerppana::flappykarp::systems
                             transform,
                             i / 2,
                             i % 2 == 0 ? pipe_direction::bottom : pipe_direction::top,
-                            random_y_offset);
+                            random_y_offset,
+                            physics.bt_rigid_body);
                     i++;
                 });
     }
@@ -81,11 +84,6 @@ namespace lerppana::flappykarp::systems
     {
         auto entity = scene.objects->add_gameobject();
         auto& transform = scene.objects->add_component<component::transform>(entity);
-        m_set_pipe_position(
-                transform,
-                i,
-                direction,
-                y_offset);
 
         auto& basic_material = scene.objects->add_component<component::basic_material>(
                 entity,
@@ -104,13 +102,21 @@ namespace lerppana::flappykarp::systems
                 });
 
         scene.objects->add_component<components::pipe>(entity);
+
+        m_set_pipe_position(
+                transform,
+                i,
+                direction,
+                y_offset,
+                physics_component.bt_rigid_body);
     }
 
     void infinite_pipe_scroller::m_set_pipe_position(
             component::transform& transform,
             uint32_t i,
             pipe_direction direction,
-            float y_offset)
+            float y_offset,
+            btRigidBody* rigid_body)
     {
         auto euler = glm::vec3(0.f, 0.f, glm::radians(180.f));
         auto pipe_y = direction == pipe_direction::top ? pipe_distance + y_offset : -pipe_distance + y_offset;
@@ -119,5 +125,10 @@ namespace lerppana::flappykarp::systems
         {
             transform.set_rotation(glm::quat(euler));
         }
+
+        auto& tr = rigid_body->getWorldTransform();
+        tr.setOrigin(engine::util::glm_to_bt_vector3(transform.get_position()));
+        tr.setRotation(engine::util::glm_to_bt_quaternion(transform.get_rotation()));
+        rigid_body->setWorldTransform(tr);
     }
 }

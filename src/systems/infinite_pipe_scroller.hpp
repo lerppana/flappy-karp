@@ -2,8 +2,6 @@
 
 #include <engine.hxx>
 
-#include "game_state.hpp"
-
 namespace lerppana::flappykarp::systems
 {
     enum pipe_direction
@@ -14,8 +12,11 @@ namespace lerppana::flappykarp::systems
 
     struct infinite_pipe_scroller : core::system
     {
+        // todo replace this with enabled state in system
+        bool enabled = true;
+
         explicit infinite_pipe_scroller(
-                std::shared_ptr<resource::resource_loader> resource_loader),
+                std::shared_ptr<resource::resource_loader> resource_loader) :
                 resource_loader(std::move(resource_loader))
         {}
 
@@ -46,6 +47,7 @@ namespace lerppana::flappykarp::systems
                 component::transform& transform,
                 uint32_t i,
                 pipe_direction direction,
-                float y_offset);
+                float y_offset,
+                btRigidBody* rigid_body);
     };
 }
