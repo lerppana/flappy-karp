@@ -119,6 +119,9 @@ jobs:
       - name: cmake build
         run: cmake --build build
 
+      - name: cmake install
+        run: cmake --install . --prefix=install --config Release
+
       - name: save build output
         uses: actions/upload-artifact@v2
         with:
