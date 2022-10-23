@@ -55,3 +55,7 @@ install(CODE [[
             file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}" FILES "${DLL}")
         endforeach()
     ]])
+
+FILE(GLOB DLLS "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/*.dll")
+
+INSTALL(FILES "${DLLS}" DESTINATION "BIN")
