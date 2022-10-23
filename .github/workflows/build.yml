@@ -126,7 +126,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: windows-output
-          path: ${{ github.workspace }}/install
+          path: ${{ github.workspace }}/install/bin
           retention-days: 2
 
       - name: collect build logs
