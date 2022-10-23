@@ -32,7 +32,7 @@ engine_create_plugin(flappykarp
 engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/engine/launcher)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
-
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 install(CODE "set(PLUGIN_FILE \"$<TARGET_FILE:${PROJECT_NAME}>\")")
 install(CODE "set(VCPKG_BIN_DIR \"${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin\")")
 install(CODE [[
