@@ -49,7 +49,7 @@ install(CODE [[
 )
         message("Packaging .DLL's:")
         foreach(DLL ${RESOLVED_DLLS})
-            file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}" FILES "${DLL}")
+            file(INSTALL DESTINATION bin FILES "${DLL}")
         endforeach()
     ]])
 install(CODE [[
