@@ -34,7 +34,7 @@ engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 install(CODE "set(PLUGIN_FILE \"$<TARGET_FILE:${PROJECT_NAME}>\")")
-install(CODE "set(VCPKG_BIN_DIR \"${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib\")")
+install(CODE "set(VCPKG_BIN_DIR \"${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin\")")
 install(CODE [[
         message("pfile: ${PLUGIN_FILE}")
         message("${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin")
@@ -45,7 +45,7 @@ install(CODE [[
             UNRESOLVED_DEPENDENCIES_VAR UNREAOLVED_DLLS
             PRE_EXCLUDE_REGEXES "api-ms-.*" "ext-ms-.*"
             POST_EXCLUDE_REGEXES ".*[Ss][Yy][Ss][Tt][Ee][Mm]32.*"
-            LIBRARIES "${PLUGIN_FILE}"
+            LIBRARIES "${VCPKG_BIN_DIR}/engine.dll"
             DIRECTORIES "${VCPKG_BIN_DIR}"
 )
         message(WARNING "Unresolved DLLS: ${UNRESOLVED_DLLS}")
