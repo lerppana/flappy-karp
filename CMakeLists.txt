@@ -45,17 +45,13 @@ install(CODE [[
             UNRESOLVED_DEPENDENCIES_VAR UNREAOLVED_DLLS
             PRE_EXCLUDE_REGEXES "api-ms-.*" "ext-ms-.*"
             POST_EXCLUDE_REGEXES ".*[Ss][Yy][Ss][Tt][Ee][Mm]32.*"
-            LIBRARIES "${VCPKG_BIN_DIR}/engine.dll"
+            LIBRARIES "${PLUGIN_FILE}"
             DIRECTORIES "${VCPKG_BIN_DIR}"
 )
-        message(WARNING "Unresolved DLLS: ${UNRESOLVED_DLLS}")
         message("Packaging .DLL's:")
         foreach(DLL ${RESOLVED_DLLS})
-            message("${DLL}")
             file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}" FILES "${DLL}")
         endforeach()
     ]])
 
-FILE(GLOB DLLS "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/*.dll")
-
-INSTALL(FILES ${DLLS} DESTINATION "BIN")
+FILE(GLOB DLLS "${CMAKE_SOURCE_DIR}/dist/${CMAKE_CONFIG_TYPE}/*.data")
