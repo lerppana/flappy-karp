@@ -49,11 +49,11 @@ install(CODE [[
 )
         message("Packaging .DLL's:")
         foreach(DLL ${RESOLVED_DLLS})
-            file(INSTALL DESTINATION bin FILES "${DLL}")
+            file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" FILES "${DLL}")
         endforeach()
     ]])
 install(CODE [[
     file(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/dist/Release/*.data")
-    file(INSTALL ${DATA_FILES} DESTINATION bin)
+    file(INSTALL ${DATA_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 ]])
 install(FILES "${CMAKE_CURRENT_LIST_DIR}/flappykarp.project" DESTINATION bin)
