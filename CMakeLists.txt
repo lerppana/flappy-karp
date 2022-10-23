@@ -32,13 +32,12 @@ engine_create_plugin(flappykarp
 engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/engine/launcher)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
+
+# install
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 install(CODE "set(PLUGIN_FILE \"$<TARGET_FILE:${PROJECT_NAME}>\")")
 install(CODE "set(VCPKG_BIN_DIR \"${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin\")")
 install(CODE [[
-        message("pfile: ${PLUGIN_FILE}")
-        message("${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin")
-        message("${VCPKG_BIN_DIR}")
         # The regexes are a workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/22431
         file(GET_RUNTIME_DEPENDENCIES
             RESOLVED_DEPENDENCIES_VAR RESOLVED_DLLS
@@ -54,4 +53,5 @@ install(CODE [[
         endforeach()
     ]])
 
-FILE(GLOB DLLS "${CMAKE_SOURCE_DIR}/dist/${CMAKE_CONFIG_TYPE}/*.data")
+FILE(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/dist/${CMAKE_BUILD_TYPE}/*.data")
+install(FILES ${DATA_FILES} DESTINATION bin)
