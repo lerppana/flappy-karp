@@ -33,8 +33,22 @@ engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
 
+install(CODE [[
+        # The regexes are a workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/22431
+        file(GET_RUNTIME_DEPENDENCIES
+            RESOLVED_DEPENDENCIES_VAR RESOLVED_DLLS
+            PRE_EXCLUDE_REGEXES "api-ms-.*" "ext-ms-.*"
+            POST_EXCLUDE_REGEXES ".*[Ss][Yy][Ss][Tt][Ee][Mm]32.*"
+            LIBRARIES "$<TARGET_FILE:${PROJECT_FILE}>")
+
+        message("Packaging .DLL's:")
+        foreach(DLL ${RESOLVED_DLLS})
+            message("${DLL}")
+            file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}" FILES "${DLL}")
+        endforeach()
+    ]])
+
 install(TARGETS ${PROJECT_NAME} RUNTIME_DEPENDENCIES
-        PRE_INCLUDE_REGEXES dep
         PRE_EXCLUDE_REGEXES "api-ms-" "ext-ms-"
         POST_EXCLUDE_REGEXES ".*system32/.*\\.dll"
         DIRECTORIES "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/"
