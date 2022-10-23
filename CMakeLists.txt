@@ -53,6 +53,6 @@ install(CODE [[
         endforeach()
     ]])
 
-FILE(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/dist/${CMAKE_CONFIG_TYPE}/*.data")
+FILE(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/dist/Release/*.data")
 install(FILES ${DATA_FILES} DESTINATION bin)
 install(FILES "${CMAKE_CURRENT_LIST_DIR}/flappykarp.project" DESTINATION bin)
