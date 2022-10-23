@@ -119,11 +119,14 @@ jobs:
       - name: cmake build
         run: cmake --build build
 
+      - name: cmake install
+        run: cmake --install build --prefix=${{ github.workspace }}/install -v --strip
+
       - name: save build output
         uses: actions/upload-artifact@v2
         with:
           name: windows-output
-          path: dist/Release
+          path: ${{ github.workspace }}/install/bin
           retention-days: 2
 
       - name: collect build logs
@@ -134,4 +137,5 @@ jobs:
           path: |
             ${{ env.buildDir }}/**/*.log
             ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
+            ${{ github.workspace }}/build/**/*.log
           retention-days: 2
