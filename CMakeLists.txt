@@ -36,6 +36,7 @@ target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
 install(CODE "set(PLUGIN_FILE \"$<TARGET_FILE:${PROJECT_NAME}>\")")
 install(CODE "set(VCPKG_BIN_DIR \"${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin\")")
 install(CODE [[
+        message("pfile: ${PROJECT_FILE}")
         message("${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin")
         message("${VCPKG_BIN_DIR}")
         # The regexes are a workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/22431
