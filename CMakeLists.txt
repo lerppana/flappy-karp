@@ -54,5 +54,7 @@ install(CODE [[
     ]])
 
 FILE(GLOB DATA_FILES "$<TARGET_FILE_DIR:${PROJECT_NAME}>/*.data")
+message("${DATA_FILES}")
+message("$<TARGET_FILE_DIR:${PROJECT_NAME}>")
 install(FILES ${DATA_FILES} DESTINATION bin)
 install(FILES "${CMAKE_CURRENT_LIST_DIR}/flappykarp.project" DESTINATION bin)
