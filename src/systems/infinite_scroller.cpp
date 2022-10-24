@@ -18,39 +18,50 @@ namespace lerppana::flappykarp::systems
         if (!enabled) return;
 
         auto random_y_offset = util::random_value(-2.0f, 6.0f);
-        core::view<component::physics_3d, components::scrollable>(scene.objects).for_each(
-                [&](auto entity, auto& physics, auto& scrollable)
+        core::view<component::physics_3d, components::scrollable, component::transform>(scene.objects).for_each(
+                [&](auto entity, auto& physics, auto& scrollable, auto& transform)
                 {
                     auto* obj = (btRigidBody*)physics.get();
-                    if (obj == nullptr)
+                    if (obj != nullptr)
                     {
-                        return;
-                    }
+                        btTransform tr(obj->getWorldTransform());
+                        auto& origin = tr.getOrigin();
+                        auto rot = tr.getRotation();
 
-                    btTransform tr(obj->getWorldTransform());
-                    auto& origin = tr.getOrigin();
-                    auto rot = tr.getRotation();
-
-                    if (tr.getOrigin().getX() >= scrollable.reset_x_offset)
-                    {
-                        auto count = 1u;
-                        if (scene.objects->has_component<components::pipe>(entity))
+                        if (tr.getOrigin().getX() >= scrollable.reset_x_offset)
                         {
-                            auto dir = rot.getIdentity() == rot ? -1.f : 1.f;
-                            origin.setY(random_y_offset + pipe_distance * dir);
-                            count = pipe_column_count;
+                            auto count = 1u;
+                            if (scene.objects->has_component<components::pipe>(entity))
+                            {
+                                auto dir = rot.getIdentity() == rot ? -1.f : 1.f;
+                                origin.setY(random_y_offset + pipe_distance * dir);
+                                count = pipe_column_count;
+                            }
+
+                            origin.setX(origin.getX() - scrollable.create_offset * count);
+                        }
+                        else
+                        {
+                            origin.setX(origin.getX() + dt.count() * scrollable.speed);
                         }
 
-                        origin.setX(origin.getX() - scrollable.create_offset * count);
+
+                        obj->setWorldTransform(tr);
+                        obj->getMotionState()->setWorldTransform(tr);
                     }
                     else
                     {
-                        origin.setX(origin.getX() + dt.count() * scrollable.speed);
+                        auto pos = transform.get_position();
+                        if (pos.x >= scrollable.reset_x_offset)
+                        {
+                            pos.x = pos.x - scrollable.create_offset;
+                        }
+                        else
+                        {
+                            pos.x = pos.x + dt.count() * scrollable.speed;
+                        }
+                        transform.set_position(pos);
                     }
-
-
-                    obj->setWorldTransform(tr);
-                    obj->getMotionState()->setWorldTransform(tr);
                 });
     }
 

@@ -24,7 +24,7 @@
                 },
                 "pr": {
                     "nc": 0.1,
-                    "fc": 100.0,
+                    "fc": 500.0,
                     "t": 0,
                     "fov": 25.0
                 }
@@ -293,7 +293,7 @@
                 "tr": {
                     "p": [
                         7.2571,
-                        -10.3276,
+                        -10.3275,
                         16.6378
                     ],
                     "r": [
@@ -321,6 +321,12 @@
                 },
                 "mf": {
                     "mesh": "fs1://models/background.model.mesh"
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 2.0,
+                    "create_offset": 8.0,
+                    "reset_x_offset": 15.0
                 }
             }
         },
@@ -358,6 +364,12 @@
                 },
                 "mf": {
                     "mesh": "fs1://models/background.model.mesh"
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 2.0,
+                    "create_offset": 8.0,
+                    "reset_x_offset": 15.0
                 }
             }
         },
@@ -377,8 +389,8 @@
                         0.0
                     ],
                     "s": [
-                        14.0679,
-                        5.2179,
+                        14.0677,
+                        5.2178,
                         9.274
                     ]
                 },
@@ -395,6 +407,12 @@
                 },
                 "mf": {
                     "mesh": "fs1://models/background.model.mesh"
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 2.0,
+                    "create_offset": 8.0,
+                    "reset_x_offset": 15.0
                 }
             }
         },
@@ -414,7 +432,7 @@
                         0.0
                     ],
                     "s": [
-                        24.0017,
+                        24.0016,
                         8.1575,
                         10.5794
                     ]
@@ -432,6 +450,12 @@
                 },
                 "mf": {
                     "mesh": "fs1://models/background.model.mesh"
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 2.0,
+                    "create_offset": 8.0,
+                    "reset_x_offset": 15.0
                 }
             }
         },
@@ -440,7 +464,7 @@
             "c": {
                 "tr": {
                     "p": [
-                        55.8671,
+                        55.867,
                         -12.4385,
                         42.5942
                     ],
@@ -451,8 +475,8 @@
                         0.0
                     ],
                     "s": [
-                        14.0679,
-                        5.2179,
+                        14.0677,
+                        5.2178,
                         9.274
                     ]
                 },
@@ -469,6 +493,12 @@
                 },
                 "mf": {
                     "mesh": "fs1://models/background.model.mesh"
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 2.0,
+                    "create_offset": 8.0,
+                    "reset_x_offset": 15.0
                 }
             }
         },
@@ -478,7 +508,7 @@
                 "tr": {
                     "p": [
                         -49.2111,
-                        -10.3276,
+                        -10.3275,
                         16.6378
                     ],
                     "r": [
@@ -506,6 +536,12 @@
                 },
                 "mf": {
                     "mesh": "fs1://models/background.model.mesh"
+                },
+                "scrollable": {
+                    "speed": 0.05,
+                    "reset_distance": 2.0,
+                    "create_offset": 8.0,
+                    "reset_x_offset": 15.0
                 }
             }
         }
