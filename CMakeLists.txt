@@ -15,16 +15,17 @@ engine_create_plugin(flappykarp
             src/di/plugin.cpp
             src/scenes/game.cpp
             src/scenes/load.cpp
-            src/systems/infinite_pipe_scroller.hpp
+            src/systems/infinite_scroller.hpp
             src/systems/player_controller.cpp
 
         INCLUDE_FILES
             src/components/pipe.hpp
+            src/components/scrollable.hpp
             src/di/module_builder.hpp
             src/di/plugin.hpp
             src/scenes/game.hpp
             src/scenes/load.hpp
-            src/systems/infinite_pipe_scroller.cpp
+            src/systems/infinite_scroller.cpp
             src/systems/player_controller.cpp
             src/tags.hpp
         )

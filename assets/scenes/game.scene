@@ -7,8 +7,8 @@
                 "tr": {
                     "p": [
                         0.0,
-                        2.0,
-                        -12.0
+                        2.2999,
+                        -40.0
                     ],
                     "r": [
                         1.0,
@@ -24,9 +24,9 @@
                 },
                 "pr": {
                     "nc": 0.1,
-                    "fc": 1000.0,
+                    "fc": 100.0,
                     "t": 0,
-                    "fov": 70.0
+                    "fov": 25.0
                 }
             }
         },
@@ -156,7 +156,7 @@
             }
         },
         {
-            "n": "terrain",
+            "n": "terrain1",
             "c": {
                 "tr": {
                     "p": [
@@ -171,13 +171,13 @@
                         0.0
                     ],
                     "s": [
-                        20.0,
-                        5.0,
-                        3.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 },
                 "mbs": {
-                    "tx": "fs0://textures/grid1024.png",
+                    "tx": "fs1://textures/ground.png",
                     "ac": [
                         0.5,
                         0.5,
@@ -188,7 +188,7 @@
                     "vcf": 0.0
                 },
                 "mf": {
-                    "mesh": "fs0://models/primitive_cube.model.mesh"
+                    "mesh": "fs1://models/ground.model.mesh"
                 },
                 "ph": {
                     "ct": "box",
@@ -211,7 +211,79 @@
                         1.0
                     ],
                     "mg": 0.0399,
-                    "as": 0
+                    "as": 4
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 40.0,
+                    "create_offset": 80.0,
+                    "reset_x_offset": 40.0
+                }
+            }
+        },
+        {
+            "n": "terrain1",
+            "c": {
+                "tr": {
+                    "p": [
+                        -39.99,
+                        -9.0,
+                        0.0
+                    ],
+                    "r": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "s": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "mbs": {
+                    "tx": "fs1://textures/ground.png",
+                    "ac": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        1.0
+                    ],
+                    "tf": 1.0,
+                    "vcf": 0.0
+                },
+                "mf": {
+                    "mesh": "fs1://models/ground.model.mesh"
+                },
+                "ph": {
+                    "ct": "box",
+                    "pt": "rigid_body",
+                    "ma": 0.0,
+                    "ms": "",
+                    "poff": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "sc": [
+                        20.0,
+                        5.0,
+                        3.0
+                    ],
+                    "af": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "mg": 0.0399,
+                    "as": 4
+                },
+                "scrollable": {
+                    "speed": 0.002,
+                    "reset_distance": 40.0,
+                    "create_offset": 80.0,
+                    "reset_x_offset": 40.0
                 }
             }
         }

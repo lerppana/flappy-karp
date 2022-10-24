@@ -10,12 +10,12 @@ namespace lerppana::flappykarp::systems
         bottom
     };
 
-    struct infinite_pipe_scroller : core::system
+    struct infinite_scroller : core::system
     {
         // todo replace this with enabled state in system
         bool enabled = true;
 
-        explicit infinite_pipe_scroller(
+        explicit infinite_scroller(
                 std::shared_ptr<resource::resource_loader> resource_loader) :
                 resource_loader(std::move(resource_loader))
         {}
@@ -32,7 +32,6 @@ namespace lerppana::flappykarp::systems
         uint32_t pipe_column_count = 5u;
         float pipe_column_offset = 8.f;
         float pipe_distance = 2.f;
-        float pipe_speed = 0.0015f;
         float pipe_start_offset = 14.f;
 
         void m_generate_pipes(core::scene& scene);
