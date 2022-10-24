@@ -1,10 +1,11 @@
-#include "systems/infinite_pipe_scroller.hpp"
+#include "systems/infinite_scroller.hpp"
 
 #include "components/pipe.hpp"
+#include "components/scrollable.hpp"
 
 namespace lerppana::flappykarp::systems
 {
-    void infinite_pipe_scroller::started(core::scene& scene)
+    void infinite_scroller::started(core::scene& scene)
     {
         resource_loader->get<resource::vk_mesh_resource>("fs1://models/pipe.model.mesh");
         resource_loader->get<resource::texture_resource>("fs1://textures/pipe.png");
@@ -12,13 +13,13 @@ namespace lerppana::flappykarp::systems
         m_generate_pipes(scene);
     }
 
-    void infinite_pipe_scroller::fixed_update(core::scene& scene, core::dt_t dt)
+    void infinite_scroller::fixed_update(core::scene& scene, core::dt_t dt)
     {
         if (!enabled) return;
 
         auto random_y_offset = util::random_value(-2.0f, 6.0f);
-        core::view<component::physics_3d, components::pipe>(scene.objects).for_each(
-                [&](auto entity, auto& physics, auto& _)
+        core::view<component::physics_3d, components::scrollable>(scene.objects).for_each(
+                [&](auto entity, auto& physics, auto& scrollable)
                 {
                     auto* obj = (btRigidBody*)physics.get();
                     if (obj == nullptr)
@@ -30,15 +31,21 @@ namespace lerppana::flappykarp::systems
                     auto& origin = tr.getOrigin();
                     auto rot = tr.getRotation();
 
-                    if (tr.getOrigin().getX() >= 15.f)
+                    if (tr.getOrigin().getX() >= scrollable.reset_x_offset)
                     {
-                        auto dir = rot.getIdentity() == rot ? -1.f : 1.f;
-                        origin.setY(random_y_offset + pipe_distance * dir);
-                        origin.setX(origin.getX() - pipe_column_offset * (pipe_column_count));
+                        auto count = 1u;
+                        if (scene.objects->has_component<components::pipe>(entity))
+                        {
+                            auto dir = rot.getIdentity() == rot ? -1.f : 1.f;
+                            origin.setY(random_y_offset + pipe_distance * dir);
+                            count = pipe_column_count;
+                        }
+
+                        origin.setX(origin.getX() - scrollable.create_offset * count);
                     }
                     else
                     {
-                        origin.setX(origin.getX() + dt.count() * pipe_speed);
+                        origin.setX(origin.getX() + dt.count() * scrollable.speed);
                     }
 
 
@@ -47,7 +54,7 @@ namespace lerppana::flappykarp::systems
                 });
     }
 
-    void infinite_pipe_scroller::reset_system(core::scene& scene)
+    void infinite_scroller::reset_system(core::scene& scene)
     {
         auto i = 0u;
         core::view<components::pipe, component::physics_3d, component::transform>(scene.objects)
@@ -69,7 +76,7 @@ namespace lerppana::flappykarp::systems
                 });
     }
 
-    void infinite_pipe_scroller::m_generate_pipes(core::scene& scene)
+    void infinite_scroller::m_generate_pipes(core::scene& scene)
     {
         for (auto i = 0u; i < pipe_column_count; i++)
         {
@@ -80,7 +87,7 @@ namespace lerppana::flappykarp::systems
         }
     }
 
-    void infinite_pipe_scroller::m_generate_pipe(core::scene& scene, uint32_t i, pipe_direction direction, float y_offset)
+    void infinite_scroller::m_generate_pipe(core::scene& scene, uint32_t i, pipe_direction direction, float y_offset)
     {
         auto entity = scene.objects->add_gameobject();
         auto& transform = scene.objects->add_component<component::transform>(entity);
@@ -102,7 +109,7 @@ namespace lerppana::flappykarp::systems
                 });
 
         scene.objects->add_component<components::pipe>(entity);
-
+        scene.objects->add_component<components::scrollable>(entity);
         m_set_pipe_position(
                 transform,
                 i,
@@ -111,7 +118,7 @@ namespace lerppana::flappykarp::systems
                 physics_component.bt_rigid_body);
     }
 
-    void infinite_pipe_scroller::m_set_pipe_position(
+    void infinite_scroller::m_set_pipe_position(
             component::transform& transform,
             uint32_t i,
             pipe_direction direction,

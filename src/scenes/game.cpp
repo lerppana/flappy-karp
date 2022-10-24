@@ -70,7 +70,6 @@ namespace lerppana::flappykarp::scenes
                 rigid_body,
                 [&](const physics::contact_result_args& args)
                 {
-                    common::console::log("hit!");
                     game_state = game_state::stopped;
                     pipe_scroller->enabled = false;
                     player_controller->enabled = false;

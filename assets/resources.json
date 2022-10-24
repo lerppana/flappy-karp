@@ -62,6 +62,25 @@
         },
         {
             "type": "model",
+            "filename": "models/ground.blend",
+            "outputs": [
+                {
+                    "type": "model",
+                    "key": "models/ground.model.mesh",
+                    "options": [
+                        {
+                            "name": "mesh"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "texture_2d",
+            "filename": "textures/ground.png"
+        },
+        {
+            "type": "model",
             "filename": "models/background.blend",
             "outputs": [
                 {
