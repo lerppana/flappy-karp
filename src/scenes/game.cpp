@@ -27,11 +27,11 @@ namespace lerppana::flappykarp::scenes
 
     void game::start()
     {
-        if (!font_manager->fonts.contains("thaleah"))
+        if (!font_manager->fonts.contains("honeyblot"))
         {
             font_manager->add_font(
-                    "thaleah",
-                    "fs1://fonts/ThaleahFat.ttf",
+                    "honeyblot",
+                    "fs1://fonts/honeyblot_caps.ttf",
                     64);
         }
 
@@ -78,12 +78,12 @@ namespace lerppana::flappykarp::scenes
 
     void game::m_gui_draw_score()
     {
-        auto* font = font_manager->get_font("thaleah");
+        auto* font = font_manager->get_font("honeyblot");
         ImGui::SetWindowFontScale(1.0f);
         ImGui::FontScope font_scope{font};
 
         static auto width = 100.0f;
-        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2,0.f));
+        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2,20.f));
 
         ImGui::GroupScope text_group;
         ImGui::Text("%d", (uint32_t)score);
@@ -97,7 +97,7 @@ namespace lerppana::flappykarp::scenes
             return;
         }
 
-        auto* font = font_manager->get_font("thaleah");
+        auto* font = font_manager->get_font("honeyblot");
         ImGui::SetWindowFontScale(1.0f);
         ImGui::FontScope font_scope{font};
 
@@ -108,7 +108,8 @@ namespace lerppana::flappykarp::scenes
                 ImGui::GetWindowHeight()/ 2 - font_height / 2));
 
         ImGui::GroupScope text_group;
-        if (ImGui::Button("Reset"))
+        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
+        if (ImGui::Button("Reset", ImVec2(220.f, 100.f)))
         {
             reset();
         }

@@ -30,7 +30,10 @@ engine_create_plugin(flappykarp
             src/tags.hpp
         )
 
-engine_create_launcher(SOURCE_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/engine/launcher)
+engine_create_launcher(
+        SOURCE_DIR "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/engine/launcher"
+        PROJECT_FILE "${CMAKE_SOURCE_DIR}/flappykarp.project"
+)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
 
@@ -57,4 +60,3 @@ install(CODE [[
     file(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/dist/Release/*.data")
     file(INSTALL ${DATA_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 ]])
-install(FILES "${CMAKE_CURRENT_LIST_DIR}/flappykarp.project" DESTINATION bin)
