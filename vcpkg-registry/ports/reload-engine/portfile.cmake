@@ -7,9 +7,9 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF 587051d1ec419fb1a6be253790a7f9742da6f9a6
+    REF 90ac8993c6e4c09cd59d9cc7850d5b1ef21202c8
     SHA512 89f9b53df1a6250c697e06948869fc1908851eab7cafb078fb9a43442cb4de846b306a981d15b756a57020f5c89a6481be1a7f0deeb86f302354e72bacd17eca
-    HEAD_REF remove-boost-filesystem
+    HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
 
