@@ -27,14 +27,6 @@ namespace lerppana::flappykarp::scenes
 
     void game::start()
     {
-        if (!font_manager->fonts.contains("honeyblot"))
-        {
-            font_manager->add_font(
-                    "honeyblot",
-                    "fs1://fonts/honeyblot_caps.ttf",
-                    64);
-        }
-
         reset();
     }
 
