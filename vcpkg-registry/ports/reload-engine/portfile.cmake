@@ -7,8 +7,8 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF 08745fabeab574e9bd0defe5759bf4d611aa349e
-    SHA512 71bba0ba72e7b15dbff0307a985fead40a59c8ceb4abaf22e30b59bdae6e77d287dd5767fb32e5267c86f794e297801e99ebd6d72b650fccb0249908d4e8c50d
+    REF 2dbbfaac9e13ad9dc99c12f5e9142bdc8deff6e2
+    SHA512 37426880c7392389816433d55dc9da7403ae958a509135876c78fff9536a470d4587d948c972ba4279bc9e915ebddb35d3c6129f3b9cc2d5e0a95311fb34f076
     HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
@@ -32,6 +32,7 @@ file(INSTALL
         "${SOURCE_PATH}/.cmake/engine_create.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_plugin.cmake"
+        "${SOURCE_PATH}/.cmake/engine_generate_project_hxx.cmake"
         "${SOURCE_PATH}/.cmake/FindVulkan.cmake"
         DESTINATION "${CURRENT_PACKAGES_DIR}/share/engine")
 
@@ -52,3 +53,4 @@ file(RENAME "${CURRENT_PACKAGES_DIR}/bin/gltf2_export.py" "${CURRENT_PACKAGES_DI
 
 vcpkg_add_to_path("${CURRENT_PACKAGES_DIR}/share/engine")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin")

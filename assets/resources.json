@@ -80,7 +80,7 @@
             "filename": "textures/ground.png"
         },
         {
-            "type": "file",
+            "type": "font",
             "filename": "fonts/honeyblot_caps.ttf"
         },
         {

@@ -2,6 +2,94 @@
 
 namespace lerppana::flappykarp::scenes
 {
+    void game::draw_start_button()
+    {
+        if (game_state != game_state::stopped)
+        {
+            return;
+        }
+
+        auto font_size = 1.0f;
+
+        auto* font = font_manager->get_font("honeyblot");
+
+        ImGui::FontScope font_scope{font};
+        ImGui::SetWindowFontScale(font_size);
+
+        static auto width = 100.0f;
+        static auto padding = 70.f;
+        const auto font_height = ImGui::GetFontSize();
+        ImGui::SetCursorPos(ImVec2(
+                ImGui::GetWindowWidth() / 2 - width / 2,
+                ImGui::GetWindowHeight()/ 2 - font_height / 2 - padding));
+
+        ImGui::GroupScope text_group;
+        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
+
+        auto text = "Start";
+
+        if (ImGui::Button(text, ImVec2(250.f, 100.f)))
+        {
+            audio_manager->play_clip("fs1://audio/Minimalist2.wav");
+            reset();
+        }
+
+        static auto was_button_hovered = false;
+        auto is_hovered = ImGui::IsItemHovered();
+        if (!was_button_hovered && is_hovered)
+        {
+            audio_manager->play_clip("fs1://audio/Minimalist7.wav");
+            was_button_hovered = true;
+        }
+        else if (was_button_hovered && !is_hovered)
+        {
+            was_button_hovered = false;
+        }
+
+        width = ImGui::GetItemRectSize().x;
+    }
+
+    void game::draw_exit_button()
+    {
+        if (game_state != game_state::stopped)
+        {
+            return;
+        }
+
+        auto* font = font_manager->get_font("honeyblot");
+        ImGui::SetWindowFontScale(1.0f);
+        ImGui::FontScope font_scope{font};
+
+        static auto width = 100.0f;
+        static auto padding = 70.f;
+
+        const auto font_height = ImGui::GetFontSize();
+        ImGui::SetCursorPos(ImVec2(
+                ImGui::GetWindowWidth() / 2 - width / 2,
+                ImGui::GetWindowHeight()/ 2 - font_height / 2 + padding));
+
+        ImGui::GroupScope text_group;
+        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
+        if (ImGui::Button("Quit", ImVec2(250.f, 100.f)))
+        {
+            scene_orchestrator_state->request_application_quit();
+        }
+
+        static auto was_button_hovered = false;
+        auto is_hovered = ImGui::IsItemHovered();
+        if (!was_button_hovered && is_hovered)
+        {
+            audio_manager->play_clip("fs1://audio/Minimalist7.wav");
+            was_button_hovered = true;
+        }
+        else if (was_button_hovered && !is_hovered)
+        {
+            was_button_hovered = false;
+        }
+
+        width = ImGui::GetItemRectSize().x;
+    }
+
     void game::fixed_update(core::dt_t dt)
     {
         m_detect_player_hits();
@@ -33,7 +121,8 @@ namespace lerppana::flappykarp::scenes
     void game::on_gui()
     {
         m_gui_draw_score();
-        m_gui_draw_reset_button();
+        draw_start_button();
+        draw_exit_button();
     }
 
     void game::update(core::dt_t dt)
@@ -79,32 +168,6 @@ namespace lerppana::flappykarp::scenes
 
         ImGui::GroupScope text_group;
         ImGui::Text("%d", (uint32_t)score);
-        width = ImGui::GetItemRectSize().x;
-    }
-
-    void game::m_gui_draw_reset_button()
-    {
-        if (game_state != game_state::stopped)
-        {
-            return;
-        }
-
-        auto* font = font_manager->get_font("honeyblot");
-        ImGui::SetWindowFontScale(1.0f);
-        ImGui::FontScope font_scope{font};
-
-        static auto width = 100.0f;
-        const auto font_height = ImGui::GetFontSize();
-        ImGui::SetCursorPos(ImVec2(
-                ImGui::GetWindowWidth() / 2 - width / 2,
-                ImGui::GetWindowHeight()/ 2 - font_height / 2));
-
-        ImGui::GroupScope text_group;
-        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
-        if (ImGui::Button("Reset", ImVec2(220.f, 100.f)))
-        {
-            reset();
-        }
         width = ImGui::GetItemRectSize().x;
     }
 }
