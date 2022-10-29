@@ -53,4 +53,3 @@ file(RENAME "${CURRENT_PACKAGES_DIR}/bin/gltf2_export.py" "${CURRENT_PACKAGES_DI
 
 vcpkg_add_to_path("${CURRENT_PACKAGES_DIR}/share/engine")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin")
