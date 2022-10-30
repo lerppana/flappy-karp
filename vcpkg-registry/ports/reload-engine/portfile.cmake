@@ -32,7 +32,7 @@ file(INSTALL
         "${SOURCE_PATH}/.cmake/engine_create.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_plugin.cmake"
-        "${SOURCE_PATH}/.cmake/engine_generate_project_hxx.cmake"
+        # "${SOURCE_PATH}/.cmake/engine_generate_project_hxx.cmake"
         "${SOURCE_PATH}/.cmake/FindVulkan.cmake"
         DESTINATION "${CURRENT_PACKAGES_DIR}/share/engine")
 
