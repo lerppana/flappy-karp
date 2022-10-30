@@ -20,6 +20,7 @@
         "vulkan"
       ]
     },
+    "sdl2-mixer",
     {
       "name": "bullet3",
       "features": [
