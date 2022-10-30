@@ -7,9 +7,9 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF 16e0ad55488567db8a73743bfe91ffc33d0a364c
-    SHA512 ed4ae7bf539209aa9698e72064df2fe1389f63f1d92fc1335921df3cafde6019d336c9d7c451a593f22e78b0c028075557bc6b51bca002da91edecf146be0a95
-    HEAD_REF quiet-fail-mixer
+    REF b5d01f0ff7dc13042b0c499657a8b85bb80af220
+    SHA512 0
+    HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
 
