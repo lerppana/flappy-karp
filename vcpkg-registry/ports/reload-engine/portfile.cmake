@@ -8,7 +8,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
     REF 30b2d00e9d22f0ca2cb2f72e9865baed3fb5b6b4
-    SHA512 0
+    SHA512 a916b651913db02393c61911f9cb18c6dbaacc40e4a937028bec6d9a20ea970b0f0e0e8bf7cbdd2b136bec6c0515f3882f79d045e7f5a257d00aaabede7c0e9a
     HEAD_REF mixer-dep
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
