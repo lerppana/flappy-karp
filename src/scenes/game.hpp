@@ -54,6 +54,11 @@ namespace lerppana::flappykarp::scenes
 
         void m_detect_player_hits();
 
+        bool m_draw_button(
+                std::string_view button_text,
+                float padding,
+                bool is_active);
+
         void m_gui_draw_score();
 
         void m_gui_draw_reset_button();

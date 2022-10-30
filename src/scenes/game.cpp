@@ -9,44 +9,15 @@ namespace lerppana::flappykarp::scenes
             return;
         }
 
-        auto font_size = 1.0f;
+        static auto is_active = false;
 
-        auto* font = font_manager->get_font("honeyblot");
-
-        ImGui::FontScope font_scope{font};
-        ImGui::SetWindowFontScale(font_size);
-
-        static auto width = 100.0f;
-        static auto padding = 70.f;
-        const auto font_height = ImGui::GetFontSize();
-        ImGui::SetCursorPos(ImVec2(
-                ImGui::GetWindowWidth() / 2 - width / 2,
-                ImGui::GetWindowHeight()/ 2 - font_height / 2 - padding));
-
-        ImGui::GroupScope text_group;
-        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
-
-        auto text = "Start";
-
-        if (ImGui::Button(text, ImVec2(250.f, 100.f)))
+        if (m_draw_button("Flap!", 70.f, is_active))
         {
             audio_manager->play_clip("fs1://audio/Minimalist2.wav");
             reset();
         }
 
-        static auto was_button_hovered = false;
-        auto is_hovered = ImGui::IsItemHovered();
-        if (!was_button_hovered && is_hovered)
-        {
-            audio_manager->play_clip("fs1://audio/Minimalist7.wav");
-            was_button_hovered = true;
-        }
-        else if (was_button_hovered && !is_hovered)
-        {
-            was_button_hovered = false;
-        }
-
-        width = ImGui::GetItemRectSize().x;
+        is_active = ImGui::IsItemActive();
     }
 
     void game::draw_exit_button()
@@ -56,38 +27,14 @@ namespace lerppana::flappykarp::scenes
             return;
         }
 
-        auto* font = font_manager->get_font("honeyblot");
-        ImGui::SetWindowFontScale(1.0f);
-        ImGui::FontScope font_scope{font};
+        static auto is_active = false;
 
-        static auto width = 100.0f;
-        static auto padding = 70.f;
-
-        const auto font_height = ImGui::GetFontSize();
-        ImGui::SetCursorPos(ImVec2(
-                ImGui::GetWindowWidth() / 2 - width / 2,
-                ImGui::GetWindowHeight()/ 2 - font_height / 2 + padding));
-
-        ImGui::GroupScope text_group;
-        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
-        if (ImGui::Button("Quit", ImVec2(250.f, 100.f)))
+        if (m_draw_button("Quit", -70.f, is_active))
         {
             scene_orchestrator_state->request_application_quit();
         }
 
-        static auto was_button_hovered = false;
-        auto is_hovered = ImGui::IsItemHovered();
-        if (!was_button_hovered && is_hovered)
-        {
-            audio_manager->play_clip("fs1://audio/Minimalist7.wav");
-            was_button_hovered = true;
-        }
-        else if (was_button_hovered && !is_hovered)
-        {
-            was_button_hovered = false;
-        }
-
-        width = ImGui::GetItemRectSize().x;
+        is_active = ImGui::IsItemActive();
     }
 
     void game::fixed_update(core::dt_t dt)
@@ -115,7 +62,7 @@ namespace lerppana::flappykarp::scenes
 
     void game::start()
     {
-        reset();
+        // reset();
     }
 
     void game::on_gui()
@@ -155,6 +102,59 @@ namespace lerppana::flappykarp::scenes
                     pipe_scroller->enabled = false;
                     player_controller->enabled = false;
                 });
+    }
+
+    bool game::m_draw_button(
+            std::string_view button_text,
+            float padding,
+            bool is_active)
+    {
+        auto font_size = 1.0f;
+
+        auto* font = font_manager->get_font("honeyblot");
+
+        ImGui::FontScope font_scope{font};
+        ImGui::SetWindowFontScale(font_size);
+
+        static auto width = 100.0f;
+
+        if (is_active)
+        {
+            padding -= 10.f;
+        }
+
+        const auto font_height = ImGui::GetFontSize();
+
+        auto x = ImGui::GetWindowWidth() / 2 - width / 2;
+        auto y = ImGui::GetWindowHeight()/ 2 - font_height / 2 - padding;
+        ImGui::SetCursorPos(ImVec2(x,y));
+
+        ImGui::GetWindowDrawList()->AddRectFilled(
+                ImVec2(x, y),
+                ImVec2(x + 250.f, y + 100.f),
+                ImGui::ColorConvertFloat4ToU32(ImVec4(.2f, .2f, .2f, 1.f)),
+                0.f);
+
+        ImGui::GroupScope text_group;
+        ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
+
+        auto is_clicked = ImGui::Button(button_text.data(), ImVec2(250.f, 100.f));
+
+        static auto was_button_hovered = false;
+        auto is_hovered = ImGui::IsItemHovered();
+        if (!was_button_hovered && is_hovered)
+        {
+            audio_manager->play_clip("fs1://audio/Minimalist7.wav");
+            was_button_hovered = true;
+        }
+        else if (was_button_hovered && !is_hovered)
+        {
+            was_button_hovered = false;
+        }
+
+        width = ImGui::GetItemRectSize().x;
+
+        return is_clicked;
     }
 
     void game::m_gui_draw_score()

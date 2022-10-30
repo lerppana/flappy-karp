@@ -14,7 +14,7 @@ namespace lerppana::flappykarp::scenes
         auto* font = font_manager->get_font("honeyblot");
 
         ImGui::FontScope font_scope{font};
-        ImGui::SetWindowFontScale(.0f);
+        ImGui::SetWindowFontScale(1.0f);
 
         static auto width = 100.0f;
         static auto padding = 70.f;
