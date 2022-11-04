@@ -65,7 +65,6 @@ namespace lerppana::flappykarp::scenes
 
     void game::fixed_update(core::dt_t dt)
     {
-        common::console::log("!");
         m_detect_player_hits();
     }
 
