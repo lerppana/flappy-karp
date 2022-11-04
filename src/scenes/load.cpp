@@ -26,7 +26,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::GroupScope text_group;
         ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
 
-        ImGui::Text("loading...", ImVec2(250.f, 100.f));
+        ImGui::Text("loading...");
 
         width = ImGui::GetItemRectSize().x;
     }
