@@ -35,6 +35,8 @@ engine_create_launcher(
         PROJECT_FILE "${CMAKE_SOURCE_DIR}/flappykarp.project"
 )
 
+target_link_libraries(launcher PUBLIC SDL2::SDL2main)
+
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
 
 # install
