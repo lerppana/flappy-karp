@@ -92,6 +92,17 @@ namespace lerppana::flappykarp::scenes
         game_state = game_state::stopped;
         pipe_scroller->enabled = false;
         player_controller->enabled = false;
+
+        auto player_physics = objects->get_tagged_component<component::physics_3d>(core::tag::player_1);
+        if (player_physics.get() == nullptr)
+        {
+            return;
+        }
+
+        auto* rigid_body = (btRigidBody*)player_physics.get();
+        auto& tr = rigid_body->getWorldTransform();
+        tr.setOrigin(btVector3{5.f, -3.f, 0.f});
+        rigid_body->setWorldTransform(tr);
     }
 
     void game::on_gui()
