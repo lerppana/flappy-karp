@@ -32,6 +32,8 @@ namespace lerppana::flappykarp::scenes
 
         void draw_exit_button();
 
+        void draw_hint_text();
+
         void draw_start_button();
 
         void fixed_update(core::dt_t dt) final;
