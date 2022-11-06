@@ -15,14 +15,16 @@ namespace lerppana::flappykarp::systems
         {
         }
 
+        bool can_splash();
+
         void fixed_update(core::scene& scene, core::dt_t dt) final;
 
         void started(core::scene& scene) final;
 
+        void splash(core::scene& scene, float jump_force);
+
     private:
         std::shared_ptr<engine::system::sdl_input_manager> input_manager;
-
-        float jump_force = 6.0f;
         std::chrono::system_clock::time_point last_splash = std::chrono::system_clock::time_point::min();
     };
 }

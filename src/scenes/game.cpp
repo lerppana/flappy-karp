@@ -30,11 +30,6 @@ namespace lerppana::flappykarp::scenes
             was_button_hovered = false;
         }
 
-        if (is_hovered)
-        {
-            common::console::log("!");
-        }
-
         is_active = ImGui::IsItemActive();
     }
 
@@ -97,6 +92,17 @@ namespace lerppana::flappykarp::scenes
         game_state = game_state::stopped;
         pipe_scroller->enabled = false;
         player_controller->enabled = false;
+
+        auto player_physics = objects->get_tagged_component<component::physics_3d>(core::tag::player_1);
+        if (player_physics.get() == nullptr)
+        {
+            return;
+        }
+
+        auto* rigid_body = (btRigidBody*)player_physics.get();
+        auto& tr = rigid_body->getWorldTransform();
+        tr.setOrigin(btVector3{5.f, -3.f, 0.f});
+        rigid_body->setWorldTransform(tr);
     }
 
     void game::on_gui()
@@ -135,6 +141,10 @@ namespace lerppana::flappykarp::scenes
                     game_state = game_state::stopped;
                     pipe_scroller->enabled = false;
                     player_controller->enabled = false;
+                    if (player_controller->can_splash())
+                    {
+                        player_controller->splash(*this, util::random_value(2.0f, 4.0f));
+                    }
                 });
     }
 
@@ -174,9 +184,9 @@ namespace lerppana::flappykarp::scenes
 
         ImGui::StyleVar style(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.5f, 0.75f));
 
-        ImGui::StyleColorScope button_color(ImGuiCol_Button, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
-        ImGui::StyleColorScope button_hovered(ImGuiCol_ButtonHovered, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
-        ImGui::StyleColorScope button_active(ImGuiCol_ButtonActive, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
+        ImGui::StyleColorScope button_color(ImGuiCol_Button, ImVec4(0.3f, 0.6f, 0.8f, 1.0f));
+        ImGui::StyleColorScope button_active(ImGuiCol_ButtonActive, ImVec4(0.5f, 0.7f, 1.0f, 1.0f));
+        ImGui::StyleColorScope button_hovered(ImGuiCol_ButtonHovered, ImVec4(0.5f, 0.7f, 0.9f, 1.0f));
 
         ImGui::SetCursorPos(ImVec2(x,y));
         auto is_clicked = ImGui::Button(button_text.data(), ImVec2(250.f, 100.f));
