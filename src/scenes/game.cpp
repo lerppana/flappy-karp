@@ -177,7 +177,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::FontScope font_scope{font};
         ImGui::SetWindowFontScale(font_size);
 
-        static auto button_width = 100.0f;
+        static auto button_width = 280.0f;
 
         const auto font_height = ImGui::GetFontSize();
 
@@ -190,7 +190,7 @@ namespace lerppana::flappykarp::scenes
 
         ImGui::GetWindowDrawList()->AddRectFilled(
                 ImVec2(window_pos.x + x, window_pos.y + y + 10.f),
-                ImVec2(window_pos.x + x + 250.f, window_pos.y + y + 110.f),
+                ImVec2(window_pos.x + x + button_width, window_pos.y + y + 110.f),
                 ImGui::ColorConvertFloat4ToU32(ImVec4(.2f, .2f, .2f, 1.f)),
                 0.f);
 
@@ -206,7 +206,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::StyleColorScope button_hovered(ImGuiCol_ButtonHovered, ImVec4(0.5f, 0.7f, 0.9f, 1.0f));
 
         ImGui::SetCursorPos(ImVec2(x,y));
-        auto is_clicked = ImGui::Button(button_text.data(), ImVec2(250.f, 100.f));
+        auto is_clicked = ImGui::Button(button_text.data(), ImVec2(button_width, 100.f));
 
         button_width = ImGui::GetItemRectSize().x;
 
