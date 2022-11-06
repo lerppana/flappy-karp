@@ -22,46 +22,64 @@ namespace lerppana::flappykarp::systems
                 [&](auto entity, auto& physics, auto& scrollable, auto& transform)
                 {
                     auto* obj = (btRigidBody*)physics.get();
-                    if (obj != nullptr)
+                    if (obj == nullptr)
                     {
-                        btTransform tr(obj->getWorldTransform());
-                        auto& origin = tr.getOrigin();
-                        auto rot = tr.getRotation();
+                        return;
+                    }
 
-                        if (tr.getOrigin().getX() >= scrollable.reset_x_offset)
-                        {
-                            auto count = 1u;
-                            if (scene.objects->has_component<components::pipe>(entity))
-                            {
-                                auto dir = rot.getIdentity() == rot ? -1.f : 1.f;
-                                origin.setY(random_y_offset + pipe_distance * dir);
-                                count = pipe_column_count;
-                            }
+                    btTransform tr(obj->getWorldTransform());
+                    auto& origin = tr.getOrigin();
+                    auto rot = tr.getRotation();
 
-                            origin.setX(origin.getX() - scrollable.create_offset * count);
-                        }
-                        else
+                    if (tr.getOrigin().getX() >= scrollable.reset_x_offset)
+                    {
+                        auto count = 1u;
+                        if (scene.objects->has_component<components::pipe>(entity))
                         {
-                            origin.setX(origin.getX() + dt.count() * scrollable.speed);
+                            auto dir = rot.getIdentity() == rot ? -1.f : 1.f;
+                            origin.setY(random_y_offset + pipe_distance * dir);
+                            count = pipe_column_count;
                         }
 
-
-                        obj->setWorldTransform(tr);
-                        obj->getMotionState()->setWorldTransform(tr);
+                        origin.setX(origin.getX() - scrollable.create_offset * count);
                     }
                     else
                     {
-                        auto pos = transform.get_position();
-                        if (pos.x >= scrollable.reset_x_offset)
-                        {
-                            pos.x = pos.x - scrollable.create_offset;
-                        }
-                        else
-                        {
-                            pos.x = pos.x + dt.count() * scrollable.speed;
-                        }
-                        transform.set_position(pos);
+                        origin.setX(origin.getX() + dt.count() * scrollable.speed / 1000.0f);
                     }
+
+                    obj->setWorldTransform(tr);
+                    obj->getMotionState()->setWorldTransform(tr);
+
+                    if (scene.objects->has_component<component::physics_3d>(entity))
+                    {
+                        return;
+                    }
+                    else
+                    {
+
+                    }
+                });
+
+        core::view<components::scrollable, component::transform>(scene.objects).for_each(
+                [&](auto entity, auto& scrollable, auto& transform)
+                {
+                    if (scene.objects->has_component<component::physics_3d>(entity))
+                    {
+                        return;
+                    }
+
+                    auto pos = transform.get_position();
+                    if (pos.x >= scrollable.reset_x_offset)
+                    {
+                        pos.x = pos.x - scrollable.create_offset;
+                    }
+                    else
+                    {
+                        pos.x = pos.x + dt.count() * scrollable.speed / 1000.0f;
+                    }
+
+                    transform.set_position(pos);
                 });
     }
 
