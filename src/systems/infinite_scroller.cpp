@@ -92,7 +92,6 @@ namespace lerppana::flappykarp::systems
         for (auto i = 0u; i < pipe_column_count; i++)
         {
             auto random_y_offset = util::random_value(-2.0f, 6.0f);
-            common::console::log(random_y_offset);
             m_generate_pipe(scene, i, pipe_direction::bottom, random_y_offset);
             m_generate_pipe(scene, i, pipe_direction::top, random_y_offset);
         }
@@ -102,6 +101,7 @@ namespace lerppana::flappykarp::systems
     {
         auto entity = scene.objects->add_gameobject();
         auto& transform = scene.objects->add_component<component::transform>(entity);
+        transform.set_position({0.f, -2.5f, 0.f});
 
         auto& basic_material = scene.objects->add_component<component::basic_material>(
                 entity,

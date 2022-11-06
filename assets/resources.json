@@ -97,6 +97,18 @@
         {
             "type": "texture_2d",
             "filename": "textures/background.png"
+        },
+        {
+            "type": "font",
+            "filename": "fonts/honeyblot_caps.ttf"
+        },
+        {
+            "type": "file",
+            "filename": "audio/Minimalist2.wav"
+        },
+        {
+            "type": "file",
+            "filename": "audio/Minimalist7.wav"
         }
     ]
 }

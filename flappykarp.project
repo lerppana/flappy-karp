@@ -1,5 +1,5 @@
 {
-    "startup_scene":"fs1://scenes/game.scene",
+    "startup_scene":"fs1://scenes/load.scene",
     "name": "flappy karp",
     "version_string":"0.0.0",
     "dynamic_libraries": ["flappykarp"],
@@ -12,6 +12,14 @@
             "name": "fs1",
             "archive_path": "${binaryDir}/asset1.data",
             "folder_path": "${projectDir}/assets/resources.json"
+        }
+    ],
+    "fonts":
+    [
+        {
+            "name": "honeyblot",
+            "key": "fs1://fonts/honeyblot_caps.ttf",
+            "size": 64
         }
     ]
 }

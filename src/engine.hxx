@@ -9,10 +9,12 @@
 #include <component/transform.hpp>
 #include <core/object_manager.hpp>
 #include <core/scene.hpp>
+#include <core/scene_orchestrator_state.hpp>
 #include <core/system.hpp>
 #include <core/view.hpp>
 #include <imgui.hpp>
 #include <engine/plugin.hpp>
+#include <framework/audio_manager.hpp>
 #include <plugin.hpp>
 #include <resource/resource_loader.hpp>
 #include <system/sdl_input_manager.hpp>

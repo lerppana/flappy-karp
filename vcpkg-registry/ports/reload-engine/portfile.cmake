@@ -7,8 +7,8 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO lerppana/reload-engine
-    REF ae59d35cd40df81fb1ce60e24fc587dbf76fc8f7
-    SHA512 91fbe881dc09fec8b724d2e3326d6020ae1bfa74f25719c0e14f2f791e9908d35a5f4e9fa212c2b5febd8d1b6fe7f0ea094e1c43d1d778c4b1c03377f8492cd2
+    REF 95ace1a2f796a783a05ca4fc567d9794297fe451
+    SHA512 9fdb18f05d4aa8cdc50f5a54b9f427f725ffd22e6c65bcbb459bb89a6f3d3b408d546d2433e56b84dabdbd1bc95c227e49f4e9bb5ee16199f871dec323d45789
     HEAD_REF master
     AUTHORIZATION_TOKEN $ENV{GITHUB_AUTHORIZATION_TOKEN}
 )
@@ -32,6 +32,7 @@ file(INSTALL
         "${SOURCE_PATH}/.cmake/engine_create.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_launcher.cmake"
         "${SOURCE_PATH}/.cmake/engine_create_plugin.cmake"
+        "${SOURCE_PATH}/.cmake/engine_generate_project_hxx.cmake"
         "${SOURCE_PATH}/.cmake/FindVulkan.cmake"
         DESTINATION "${CURRENT_PACKAGES_DIR}/share/engine")
 
