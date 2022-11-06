@@ -18,8 +18,8 @@ namespace lerppana::flappykarp::systems
         if (!enabled) return;
 
         auto random_y_offset = util::random_value(-2.0f, 6.0f);
-        core::view<component::physics_3d, components::scrollable>(scene.objects).for_each(
-                [&](auto entity, auto& physics, auto& scrollable)
+        core::view<component::physics_3d, components::scrollable, component::transform>(scene.objects).for_each(
+                [&](auto entity, auto& physics, auto& scrollable, auto& transform)
                 {
                     auto* obj = (btRigidBody*)physics.get();
                     if (obj == nullptr)
@@ -45,12 +45,41 @@ namespace lerppana::flappykarp::systems
                     }
                     else
                     {
-                        origin.setX(origin.getX() + dt.count() * scrollable.speed);
+                        origin.setX(origin.getX() + dt.count() * scrollable.speed / 1000.0f);
                     }
-
 
                     obj->setWorldTransform(tr);
                     obj->getMotionState()->setWorldTransform(tr);
+
+                    if (scene.objects->has_component<component::physics_3d>(entity))
+                    {
+                        return;
+                    }
+                    else
+                    {
+
+                    }
+                });
+
+        core::view<components::scrollable, component::transform>(scene.objects).for_each(
+                [&](auto entity, auto& scrollable, auto& transform)
+                {
+                    if (scene.objects->has_component<component::physics_3d>(entity))
+                    {
+                        return;
+                    }
+
+                    auto pos = transform.get_position();
+                    if (pos.x >= scrollable.reset_x_offset)
+                    {
+                        pos.x = pos.x - scrollable.create_offset;
+                    }
+                    else
+                    {
+                        pos.x = pos.x + dt.count() * scrollable.speed / 1000.0f;
+                    }
+
+                    transform.set_position(pos);
                 });
     }
 
