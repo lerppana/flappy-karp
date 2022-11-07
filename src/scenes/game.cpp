@@ -12,7 +12,7 @@ namespace lerppana::flappykarp::scenes
         static auto is_active = false;
 
         ImGui::GroupScope text_group;
-        if (m_draw_button("Flap!", 70.f, is_active))
+        if (m_draw_button("Splash!", 70.f, is_active))
         {
             audio_manager->play_clip("fs1://audio/Minimalist2.wav");
             reset();
@@ -63,6 +63,22 @@ namespace lerppana::flappykarp::scenes
         }
     }
 
+    void game::draw_hint_text()
+    {
+        auto* font = font_manager->get_font("honeyblot");
+        ImGui::FontScope font_scope{font};
+        ImGui::SetWindowFontScale(0.4f);
+
+        static auto width = 100.0f;
+        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2,ImGui::GetWindowHeight() - 50.f));
+
+        ImGui::GroupScope text_group;
+
+        auto text_fadeout = 5.0f;
+        auto alpha = glm::clamp((text_fadeout - score) / text_fadeout, 0.0f, 1.0f);
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, alpha), "tap SPACE to splash!");
+        width = ImGui::GetItemRectSize().x;
+    }
     void game::fixed_update(core::dt_t dt)
     {
         m_detect_player_hits();
@@ -110,6 +126,7 @@ namespace lerppana::flappykarp::scenes
         m_gui_draw_score();
         draw_start_button();
         draw_exit_button();
+        draw_hint_text();
     }
 
     void game::update(core::dt_t dt)
@@ -160,7 +177,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::FontScope font_scope{font};
         ImGui::SetWindowFontScale(font_size);
 
-        static auto button_width = 100.0f;
+        static auto button_width = 280.0f;
 
         const auto font_height = ImGui::GetFontSize();
 
@@ -173,7 +190,7 @@ namespace lerppana::flappykarp::scenes
 
         ImGui::GetWindowDrawList()->AddRectFilled(
                 ImVec2(window_pos.x + x, window_pos.y + y + 10.f),
-                ImVec2(window_pos.x + x + 250.f, window_pos.y + y + 110.f),
+                ImVec2(window_pos.x + x + button_width, window_pos.y + y + 110.f),
                 ImGui::ColorConvertFloat4ToU32(ImVec4(.2f, .2f, .2f, 1.f)),
                 0.f);
 
@@ -189,7 +206,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::StyleColorScope button_hovered(ImGuiCol_ButtonHovered, ImVec4(0.5f, 0.7f, 0.9f, 1.0f));
 
         ImGui::SetCursorPos(ImVec2(x,y));
-        auto is_clicked = ImGui::Button(button_text.data(), ImVec2(250.f, 100.f));
+        auto is_clicked = ImGui::Button(button_text.data(), ImVec2(button_width, 100.f));
 
         button_width = ImGui::GetItemRectSize().x;
 
