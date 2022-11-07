@@ -33,16 +33,20 @@ engine_create_plugin(flappykarp
 engine_create_launcher(
         SOURCE_DIR "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/engine/launcher"
         PROJECT_FILE "${CMAKE_SOURCE_DIR}/flappykarp.project"
+        PROJECT_NAME flappykarp
+        ICON_FILE "${CMAKE_SOURCE_DIR}/assets/icon.png"
+        VCPKG_FILE "${CMAKE_SOURCE_DIR}/vcpkg.json"
 )
 
-target_link_libraries(launcher PUBLIC SDL2::SDL2main)
-
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/engine.hxx)
+
+SET(CMAKE_INSTALL_RPATH "\${ORIGIN}")
 
 # install
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 install(CODE "set(PLUGIN_FILE \"$<TARGET_FILE:${PROJECT_NAME}>\")")
 install(CODE "set(VCPKG_BIN_DIR \"${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin\")")
+install(CODE "set(REPO_ROOT_DIR \"${CMAKE_SOURCE_DIR}\")")
 install(CODE [[
         # The regexes are a workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/22431
         file(GET_RUNTIME_DEPENDENCIES
@@ -52,13 +56,15 @@ install(CODE [[
             POST_EXCLUDE_REGEXES ".*[Ss][Yy][Ss][Tt][Ee][Mm]32.*"
             LIBRARIES "${PLUGIN_FILE}"
             DIRECTORIES "${VCPKG_BIN_DIR}"
-)
+        )
         message("Packaging .DLL's:")
         foreach(DLL ${RESOLVED_DLLS})
             file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" FILES "${DLL}")
         endforeach()
     ]])
+
 install(CODE [[
-    file(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/dist/Release/*.data")
+    file(GLOB DATA_FILES "${REPO_ROOT_DIR}/dist/Release/*.data")
+    message(STATUS "data files from ${REPO_ROOT_DIR}/dist/Release: ${DATA_FILES}")
     file(INSTALL ${DATA_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 ]])
