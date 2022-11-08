@@ -15,7 +15,6 @@ jobs:
   build:
     name: ${{ matrix.os }}-build
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: false
       matrix:
@@ -33,90 +32,4 @@ jobs:
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
     steps:
-      - uses: actions/checkout@v3
-        name: pull sources
-        with:
-          lfs: true
-
-      - uses: actions/checkout@v3
-        name: pull vcpkg
-        with:
-          repository: 'microsoft/vcpkg'
-          ref: '2022.09.27'
-          path: 'vcpkg'
-
-      - name: cache vcpkg downloads.
-        uses: pat-s/always-upload-cache@v3.0.1
-        with:
-          path: |
-            ${{ github.workspace }}/vcpkg/downloads
-          key: ${{ matrix.os }}-vcpkg-downloads
-
-      - uses: lerppana/install_vulkan_sdk@main
-      
-      - uses: ilammy/msvc-dev-cmd@v1
-        if: ${{ matrix.os == 'windows-latest' }}
-        name: setup msvc command prompt
-
-      - uses: lukka/get-cmake@latest
-        name: get latest cmake version
-
-      - uses: lerppana/blender_portable@windows
-
-      - uses: lerppana/git-credential-approve@v1
-        name: setup credentials for private vcpkg registry
-        with:
-          personal-access-token: ${{ secrets.PAT }}
-          path: 'lerppana/vcpkg-registry'
-
-      - name: bootstrap vcpkg
-        run: |
-          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat -disableMetrics
-
-      - name: 'setup nuget credentials'
-        shell: 'bash'
-        run: >
-          ${{ matrix.mono }} `./vcpkg/vcpkg fetch nuget | tail -n 1`
-          sources add
-          -source "https://nuget.pkg.github.com/lerppana/index.json"
-          -storepasswordincleartext
-          -name "GitHub"
-          -username "lerppana"
-          -password "${{ secrets.PAT }}"
-
-      - name: 'setup nuget apikey'
-        shell: 'bash'
-        run: >
-          `./vcpkg/vcpkg fetch nuget | tail -n 1`
-          setapikey "${{ secrets.PAT }}" -Source "https://nuget.pkg.github.com/lerppana/index.json"
-
-      - name: cmake config
-        working-directory: ${{ github.workspace }}
-        env:
-          GITHUB_AUTHORIZATION_TOKEN: '${{ secrets.PAT }}'
-        run: |
-          cmake -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -D CMAKE_WIN32_EXECUTABLE=True
-
-      - name: cmake build
-        run: cmake --build build
-
-      - name: cmake install
-        run: cmake --install build --prefix=${{ github.workspace }}/install -v --strip
-
-      - name: save build output
-        uses: actions/upload-artifact@v2
-        with:
-          name: windows-output
-          path: ${{ github.workspace }}/install/bin
-          retention-days: 2
-
-      - name: collect build logs
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: windows-build-logs
-          path: |
-            ${{ env.buildDir }}/**/*.log
-            ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
-            ${{ github.workspace }}/build/**/*.log
-          retention-days: 2
+      - uses: lerppana/game_build_pipeline@main
