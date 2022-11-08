@@ -32,6 +32,11 @@ jobs:
       buildDir: ${{ github.workspace }}/b/vcpkg_submod_manifest
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
     steps:
+      - uses: actions/checkout@v3
+        name: pull sources
+        with:
+          lfs: true
+
       - uses: lerppana/game_build_pipeline@main
         with:
           PAT: ${{ secrets.PAT }}
