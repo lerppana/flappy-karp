@@ -33,3 +33,5 @@ jobs:
       VCPKG_ROOT: ${{ github.workspace }}/vcpkg
     steps:
       - uses: lerppana/game_build_pipeline@main
+        inputs:
+          PAT: ${{ secrets.PAT }}
