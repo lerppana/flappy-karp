@@ -49,7 +49,7 @@ jobs:
         shell: 'pwsh'
         working-directory: ${{ github.workspace }}
         env:
-          GITHUB_AUTHORIZATION_TOKEN: '${{ inputs.PAT }}'
+          GITHUB_AUTHORIZATION_TOKEN: '${{ secrets.PAT }}'
         run: |
           cmake -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -B build -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -D CMAKE_WIN32_EXECUTABLE=True
 
