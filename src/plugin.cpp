@@ -1,12 +1,12 @@
-#include <engine.hxx>
-
-#include "tags.hpp"
-
+#include "generated/reflection.generated.hxx"
+#include "groups.hpp"
 #include "scenes/game.hpp"
 #include "scenes/load.hpp"
 #include "systems/infinite_scroller.hpp"
 #include "systems/player_controller.hpp"
-#include "generated/reflection.generated.hxx"
+#include "tags.hpp"
+
+#include <engine.hxx>
 
 using namespace engine;
 using namespace lerppana::flappykarp;
@@ -15,15 +15,15 @@ struct FLAPPYKARP_EXPORT flappykarp_plugin : engine::plugin
 {
     void addRegistrations(std::shared_ptr<Hypodermic::ContainerBuilder> builder) final
     {
-      builder->registerType<scenes::game>().as<core::scene>().asSelf().singleInstance();
+        builder->registerType<scenes::game>().as<core::scene>().asSelf().singleInstance();
 
-      builder->registerType<scenes::load>().as<core::scene>().asSelf().singleInstance();
+        builder->registerType<scenes::load>().as<core::scene>().asSelf().singleInstance();
 
-      builder->registerType<systems::infinite_scroller>().as<core::system>().asSelf().singleInstance();
+        builder->registerType<systems::infinite_scroller>().as<core::system>().asSelf().singleInstance();
 
-      builder->registerType<systems::player_controller>().as<core::system>().asSelf().singleInstance();
+        builder->registerType<systems::player_controller>().as<core::system>().asSelf().singleInstance();
 
-      builder->addRegistrations(lerppana::generated::generated_builder{});
+        builder->addRegistrations(lerppana::generated::generated_builder{});
     }
 
     void setupContainer(std::shared_ptr<Hypodermic::Container> container) final
@@ -32,6 +32,7 @@ struct FLAPPYKARP_EXPORT flappykarp_plugin : engine::plugin
 
 #if ENGINE_ENABLE_EDITOR
         container->resolve<engine::editor::tag_editor>()->register_tags<lerppana::flappykarp::tags>();
+        container->resolve<engine::editor::group_editor>()->register_groups<lerppana::flappykarp::groups>();
 #endif
     }
 };

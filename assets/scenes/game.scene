@@ -133,7 +133,7 @@
                 },
                 "dl": {
                     "ac": [
-                        0.6999,
+                        0.6998,
                         0.6998,
                         1.0
                     ],
@@ -221,7 +221,6 @@
                 },
                 "scrollable": {
                     "speed": 2.0,
-                    "reset_distance": 40.0,
                     "create_offset": 80.0,
                     "reset_x_offset": 40.0
                 }
@@ -287,7 +286,6 @@
                 },
                 "scrollable": {
                     "speed": 2.0,
-                    "reset_distance": 40.0,
                     "create_offset": 80.0,
                     "reset_x_offset": 40.0
                 }
@@ -330,7 +328,6 @@
                 },
                 "scrollable": {
                     "speed": 0.5,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -343,7 +340,7 @@
                     "p": [
                         26.1741,
                         -17.5771,
-                        70.1244
+                        70.1243
                     ],
                     "r": [
                         1.0,
@@ -373,7 +370,6 @@
                 },
                 "scrollable": {
                     "speed": 0.05,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -416,7 +412,6 @@
                 },
                 "scrollable": {
                     "speed": 0.1,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -459,7 +454,6 @@
                 },
                 "scrollable": {
                     "speed": 0.002,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -502,7 +496,6 @@
                 },
                 "scrollable": {
                     "speed": 0.1,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -545,7 +538,6 @@
                 },
                 "scrollable": {
                     "speed": 0.5,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -588,7 +580,6 @@
                 },
                 "scrollable": {
                     "speed": 0.05,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
