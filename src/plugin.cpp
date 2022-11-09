@@ -11,27 +11,19 @@
 using namespace engine;
 using namespace lerppana::flappykarp;
 
-struct module_builder : Hypodermic::ContainerBuilder
-{
-    explicit module_builder()
-    {
-        registerType<scenes::game>().as<core::scene>().asSelf().singleInstance();
-
-        registerType<scenes::load>().as<core::scene>().asSelf().singleInstance();
-
-        registerType<systems::infinite_scroller>().as<core::system>().asSelf().singleInstance();
-
-        registerType<systems::player_controller>().as<core::system>().asSelf().singleInstance();
-
-        this->addRegistrations(lerppana::generated::generated_builder{});
-    }
-};
-
 struct FLAPPYKARP_EXPORT flappykarp_plugin : engine::plugin
 {
     void addRegistrations(std::shared_ptr<Hypodermic::ContainerBuilder> builder) final
     {
-        builder->addRegistrations(module_builder{});
+      builder->registerType<scenes::game>().as<core::scene>().asSelf().singleInstance();
+
+      builder->registerType<scenes::load>().as<core::scene>().asSelf().singleInstance();
+
+      builder->registerType<systems::infinite_scroller>().as<core::system>().asSelf().singleInstance();
+
+      builder->registerType<systems::player_controller>().as<core::system>().asSelf().singleInstance();
+
+      builder->addRegistrations(lerppana::generated::generated_builder{});
     }
 
     void setupContainer(std::shared_ptr<Hypodermic::Container> container) final
