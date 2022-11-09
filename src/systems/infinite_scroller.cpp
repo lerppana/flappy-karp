@@ -100,59 +100,49 @@ namespace lerppana::flappykarp::systems
                             i / 2,
                             i % 2 == 0 ? pipe_direction::bottom : pipe_direction::top,
                             random_y_offset,
-                            physics.bt_rigid_body);
+                            physics);
                     i++;
                 });
     }
 
     void infinite_scroller::m_generate_pipes(core::scene& scene)
     {
-        for (auto i = 0u; i < pipe_column_count; i++)
+        for (auto i = 0u; i < pipe_column_count * 2; i++)
         {
-            auto random_y_offset = util::random_value(-2.0f, 6.0f);
-            m_generate_pipe(scene, i, pipe_direction::bottom, random_y_offset);
-            m_generate_pipe(scene, i, pipe_direction::top, random_y_offset);
+            auto entity = scene.objects->add_gameobject();
+            auto& transform = scene.objects->add_component<component::transform>(entity);
+            transform.set_position({0.f, -2.5f, 0.f});
+
+            scene.objects->add_component<component::basic_material>(
+                    entity,
+                    component::basic_material { .texture_ref = "fs1://textures/pipe.png" });
+
+            scene.objects->add_component<component::mesh_filter>(
+                    entity,
+                    component::mesh_filter { .mesh = "fs1://models/pipe.model.mesh" });
+
+            auto& physics_component = scene.objects->add_component<component::physics_3d>(
+                    entity,
+                    component::physics_3d{
+                            .collision_object_type = physics::collision_object_type::static_triangle_shape,
+                            .mesh_key = "fs1://models/pipe.model.mesh",
+                            .activation_state = engine::physics::activation_state::disable_deactivation
+                    });
+
+            scene.objects->add_component<components::pipe>(entity);
+            scene.objects->add_component<components::scrollable>(entity);
+
+            physics_component.set_transform(transform);
         }
     }
 
-    void infinite_scroller::m_generate_pipe(core::scene& scene, uint32_t i, pipe_direction direction, float y_offset)
-    {
-        auto entity = scene.objects->add_gameobject();
-        auto& transform = scene.objects->add_component<component::transform>(entity);
-        transform.set_position({0.f, -2.5f, 0.f});
-
-        auto& basic_material = scene.objects->add_component<component::basic_material>(
-                entity,
-                component::basic_material { .texture_ref = "fs1://textures/pipe.png" });
-
-        auto& mesh_filter = scene.objects->add_component<component::mesh_filter>(
-                entity,
-                component::mesh_filter { .mesh = "fs1://models/pipe.model.mesh" });
-
-        auto& physics_component = scene.objects->add_component<component::physics_3d>(
-                entity,
-                component::physics_3d{
-                    .collision_object_type = physics::collision_object_type::static_triangle_shape,
-                    .mesh_key = "fs1://models/pipe.model.mesh",
-                    .activation_state = engine::physics::activation_state::disable_deactivation
-                });
-
-        scene.objects->add_component<components::pipe>(entity);
-        scene.objects->add_component<components::scrollable>(entity);
-        m_set_pipe_position(
-                transform,
-                i,
-                direction,
-                y_offset,
-                physics_component.bt_rigid_body);
-    }
 
     void infinite_scroller::m_set_pipe_position(
             component::transform& transform,
             uint32_t i,
             pipe_direction direction,
             float y_offset,
-            btRigidBody* rigid_body)
+            component::physics_3d& physics)
     {
         auto euler = glm::vec3(0.f, 0.f, glm::radians(180.f));
         auto pipe_y = direction == pipe_direction::top ? pipe_distance + y_offset : -pipe_distance + y_offset;
@@ -162,9 +152,6 @@ namespace lerppana::flappykarp::systems
             transform.set_rotation(glm::quat(euler));
         }
 
-        auto& tr = rigid_body->getWorldTransform();
-        tr.setOrigin(engine::util::glm_to_bt_vector3(transform.get_position()));
-        tr.setRotation(engine::util::glm_to_bt_quaternion(transform.get_rotation()));
-        rigid_body->setWorldTransform(tr);
+        physics.set_transform(transform);
     }
 }
