@@ -11,8 +11,7 @@ engine_create_plugin(flappykarp
         "${CMAKE_CURRENT_LIST_DIR}/flappykarp.project"
 
         SOURCE_FILES
-            src/di/module_builder.cpp
-            src/di/plugin.cpp
+            src/plugin.cpp
             src/scenes/game.cpp
             src/scenes/load.cpp
             src/systems/infinite_scroller.hpp
@@ -21,8 +20,6 @@ engine_create_plugin(flappykarp
         INCLUDE_FILES
             src/components/pipe.hpp
             src/components/scrollable.hpp
-            src/di/module_builder.hpp
-            src/di/plugin.hpp
             src/scenes/game.hpp
             src/scenes/load.hpp
             src/systems/infinite_scroller.cpp
