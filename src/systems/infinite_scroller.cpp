@@ -15,10 +15,14 @@ namespace lerppana::flappykarp::systems
 
     void infinite_scroller::fixed_update(core::scene& scene, core::dt_t dt)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
 
         auto random_y_offset = util::random_value(-2.0f, 6.0f);
-        core::view<component::physics_3d, components::scrollable, component::transform>(scene.objects).for_each(
+        core::view<component::physics_3d, components::scrollable, component::transform>(scene.objects)
+            .for_each(
                 [&](auto entity, auto& physics, auto& scrollable, auto& transform)
                 {
                     auto* obj = (btRigidBody*)physics.get();
@@ -50,18 +54,10 @@ namespace lerppana::flappykarp::systems
 
                     obj->setWorldTransform(tr);
                     obj->getMotionState()->setWorldTransform(tr);
-
-                    if (scene.objects->has_component<component::physics_3d>(entity))
-                    {
-                        return;
-                    }
-                    else
-                    {
-
-                    }
                 });
 
-        core::view<components::scrollable, component::transform>(scene.objects).for_each(
+        core::view<components::scrollable, component::transform>(scene.objects)
+            .for_each(
                 [&](auto entity, auto& scrollable, auto& transform)
                 {
                     if (scene.objects->has_component<component::physics_3d>(entity))
@@ -87,7 +83,8 @@ namespace lerppana::flappykarp::systems
     {
         auto i = 0u;
         core::view<components::pipe, component::physics_3d, component::transform>(scene.objects)
-                .for_each([&](auto entity, auto& _, auto& physics, auto& transform)
+            .for_each(
+                [&](auto entity, auto& _, auto& physics, auto& transform)
                 {
                     static auto random_y_offset = 0.f;
                     if (i % 2 == 0)
@@ -96,11 +93,11 @@ namespace lerppana::flappykarp::systems
                     }
                     physics.require_sync = true;
                     m_set_pipe_position(
-                            transform,
-                            i / 2,
-                            i % 2 == 0 ? pipe_direction::bottom : pipe_direction::top,
-                            random_y_offset,
-                            physics);
+                        transform,
+                        i / 2,
+                        i % 2 == 0 ? pipe_direction::bottom : pipe_direction::top,
+                        random_y_offset,
+                        physics);
                     i++;
                 });
     }
@@ -114,20 +111,17 @@ namespace lerppana::flappykarp::systems
             transform.set_position({0.f, -2.5f, 0.f});
 
             scene.objects->add_component<component::basic_material>(
-                    entity,
-                    component::basic_material { .texture_ref = "fs1://textures/pipe.png" });
+                entity, component::basic_material{.texture_ref = "fs1://textures/pipe.png"});
 
             scene.objects->add_component<component::mesh_filter>(
-                    entity,
-                    component::mesh_filter { .mesh = "fs1://models/pipe.model.mesh" });
+                entity, component::mesh_filter{.mesh = "fs1://models/pipe.model.mesh"});
 
             auto& physics_component = scene.objects->add_component<component::physics_3d>(
-                    entity,
-                    component::physics_3d{
-                            .collision_object_type = physics::collision_object_type::static_triangle_shape,
-                            .mesh_key = "fs1://models/pipe.model.mesh",
-                            .activation_state = engine::physics::activation_state::disable_deactivation
-                    });
+                entity,
+                component::physics_3d{
+                    .collision_object_type = physics::collision_object_type::static_triangle_shape,
+                    .mesh_key = "fs1://models/pipe.model.mesh",
+                    .activation_state = engine::physics::activation_state::disable_deactivation});
 
             scene.objects->add_component<components::pipe>(entity);
             scene.objects->add_component<components::scrollable>(entity);
@@ -136,13 +130,12 @@ namespace lerppana::flappykarp::systems
         }
     }
 
-
     void infinite_scroller::m_set_pipe_position(
-            component::transform& transform,
-            uint32_t i,
-            pipe_direction direction,
-            float y_offset,
-            component::physics_3d& physics)
+        component::transform& transform,
+        uint32_t i,
+        pipe_direction direction,
+        float y_offset,
+        component::physics_3d& physics)
     {
         auto euler = glm::vec3(0.f, 0.f, glm::radians(180.f));
         auto pipe_y = direction == pipe_direction::top ? pipe_distance + y_offset : -pipe_distance + y_offset;
