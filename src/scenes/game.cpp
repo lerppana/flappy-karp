@@ -63,6 +63,16 @@ namespace lerppana::flappykarp::scenes
         }
     }
 
+    void game::draw_fps_counter()
+    {
+        auto* font = font_manager->get_font("honeyblot");
+        ImGui::FontScope font_scope{font};
+        ImGui::SetWindowFontScale(0.4f);
+
+        ImGui::SetCursorPos(ImVec2(10.f, 10.f));
+        ImGui::Text("%.2f", time->get_fps());
+    }
+
     void game::draw_hint_text()
     {
         auto* font = font_manager->get_font("honeyblot");
@@ -70,7 +80,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::SetWindowFontScale(0.4f);
 
         static auto width = 100.0f;
-        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2,ImGui::GetWindowHeight() - 50.f));
+        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2, ImGui::GetWindowHeight() - 50.f));
 
         ImGui::GroupScope text_group;
 
@@ -79,10 +89,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, alpha), "tap SPACE to splash!");
         width = ImGui::GetItemRectSize().x;
     }
-    void game::fixed_update(core::dt_t dt)
-    {
-        m_detect_player_hits();
-    }
+    void game::fixed_update(core::dt_t dt) { m_detect_player_hits(); }
 
     void game::reset()
     {
@@ -127,13 +134,23 @@ namespace lerppana::flappykarp::scenes
         draw_start_button();
         draw_exit_button();
         draw_hint_text();
+
+        if (input_manager->is_key_pressed(SDL_SCANCODE_F))
+        {
+            show_fps_counter = !show_fps_counter;
+        }
+
+        if (show_fps_counter)
+        {
+            draw_fps_counter();
+        }
     }
 
     void game::update(core::dt_t dt)
     {
         if (game_state == running)
         {
-            score += (dt.count()/1000.0f);
+            score += (dt.count() / 1000.0f);
         }
     }
 
@@ -152,23 +169,20 @@ namespace lerppana::flappykarp::scenes
         auto physics_component = objects->get_tagged_component<component::physics_3d>(core::tag::player_1);
         auto rigid_body = (btRigidBody*)physics_component.get();
         physics_world->contact_test(
-                rigid_body,
-                [&](const physics::contact_result_args& args)
+            rigid_body,
+            [&](const physics::contact_result_args& args)
+            {
+                game_state = game_state::stopped;
+                pipe_scroller->enabled = false;
+                player_controller->enabled = false;
+                if (player_controller->can_splash())
                 {
-                    game_state = game_state::stopped;
-                    pipe_scroller->enabled = false;
-                    player_controller->enabled = false;
-                    if (player_controller->can_splash())
-                    {
-                        player_controller->splash(*this, util::random_value(2.0f, 4.0f));
-                    }
-                });
+                    player_controller->splash(*this, util::random_value(2.0f, 4.0f));
+                }
+            });
     }
 
-    bool game::m_draw_button(
-            std::string_view button_text,
-            float padding,
-            bool is_active)
+    bool game::m_draw_button(std::string_view button_text, float padding, bool is_active)
     {
         auto font_size = 1.0f;
 
@@ -189,10 +203,10 @@ namespace lerppana::flappykarp::scenes
         auto window_pos = ImGui::GetWindowPos();
 
         ImGui::GetWindowDrawList()->AddRectFilled(
-                ImVec2(window_pos.x + x, window_pos.y + y + 10.f),
-                ImVec2(window_pos.x + x + button_width, window_pos.y + y + 110.f),
-                ImGui::ColorConvertFloat4ToU32(ImVec4(.2f, .2f, .2f, 1.f)),
-                0.f);
+            ImVec2(window_pos.x + x, window_pos.y + y + 10.f),
+            ImVec2(window_pos.x + x + button_width, window_pos.y + y + 110.f),
+            ImGui::ColorConvertFloat4ToU32(ImVec4(.2f, .2f, .2f, 1.f)),
+            0.f);
 
         if (is_active)
         {
@@ -205,7 +219,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::StyleColorScope button_active(ImGuiCol_ButtonActive, ImVec4(0.5f, 0.7f, 1.0f, 1.0f));
         ImGui::StyleColorScope button_hovered(ImGuiCol_ButtonHovered, ImVec4(0.5f, 0.7f, 0.9f, 1.0f));
 
-        ImGui::SetCursorPos(ImVec2(x,y));
+        ImGui::SetCursorPos(ImVec2(x, y));
         auto is_clicked = ImGui::Button(button_text.data(), ImVec2(button_width, 100.f));
 
         button_width = ImGui::GetItemRectSize().x;
@@ -220,7 +234,7 @@ namespace lerppana::flappykarp::scenes
         ImGui::FontScope font_scope{font};
 
         static auto width = 100.0f;
-        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2,20.f));
+        ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth() / 2 - width / 2, 20.f));
 
         ImGui::GroupScope text_group;
         ImGui::Text("%d", (uint32_t)score);
