@@ -6,18 +6,12 @@
   },
   "registries": [
     {
-      "kind": "filesystem",
-      "path": "vcpkg-registry",
-      "packages": [
-        "reload-engine"
-      ]
-    },
-    {
       "kind": "git",
       "baseline": "b1dd443412ad19b10a6433bf4cd41ed51a4ab4ed",
       "repository": "https://github.com/lerppana/vcpkg-registry",
       "packages": [
-        "hypodermic"
+        "hypodermic",
+        "reload-engine"
       ]
     }
   ]
