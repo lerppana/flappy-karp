@@ -1,6 +1,6 @@
 {
   "name": "flappy-karp",
-  "version-string": "0.4.4",
+  "version-string": "0.4.5",
   "dependencies": [
     {
       "name": "reload-engine",

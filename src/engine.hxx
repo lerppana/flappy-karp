@@ -11,10 +11,11 @@
 #include <core/scene.hpp>
 #include <core/scene_orchestrator_state.hpp>
 #include <core/system.hpp>
+#include <core/time.hpp>
 #include <core/view.hpp>
-#include <imgui.hpp>
 #include <engine/plugin.hpp>
 #include <framework/audio_manager.hpp>
+#include <imgui.hpp>
 #include <plugin.hpp>
 #include <resource/resource_loader.hpp>
 #include <system/sdl_input_manager.hpp>
@@ -23,7 +24,7 @@
 
 // editor
 #if ENGINE_ENABLE_EDITOR
-#include <editor/tag_editor.hpp>
+    #include <editor/tag_editor.hpp>
 #endif
 
 // 3rd party
