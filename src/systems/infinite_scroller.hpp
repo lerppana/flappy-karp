@@ -36,17 +36,11 @@ namespace lerppana::flappykarp::systems
 
         void m_generate_pipes(core::scene& scene);
 
-        void m_generate_pipe(
-                core::scene& scene,
-                uint32_t i,
-                pipe_direction direction,
-                float y_offset);
-
         void m_set_pipe_position(
                 component::transform& transform,
                 uint32_t i,
                 pipe_direction direction,
                 float y_offset,
-                btRigidBody* rigid_body);
+                component::physics_3d& physics);
     };
 }
