@@ -4,14 +4,13 @@
 
 namespace lerppana::flappykarp::systems
 {
-    struct player_controller : core::system
+    struct [[le::system]] player_controller : core::system
     {
         // todo replace this with enabled state in system
         bool enabled = false;
 
-        explicit player_controller(
-                std::shared_ptr<engine::system::sdl_input_manager> input_manager) :
-                input_manager(std::move(input_manager))
+        explicit player_controller(std::shared_ptr<engine::system::sdl_input_manager> input_manager) :
+            input_manager(std::move(input_manager))
         {
         }
 
@@ -23,7 +22,7 @@ namespace lerppana::flappykarp::systems
 
         void splash(core::scene& scene, float jump_force);
 
-    private:
+      private:
         std::shared_ptr<engine::system::sdl_input_manager> input_manager;
         std::chrono::system_clock::time_point last_splash = std::chrono::system_clock::time_point::min();
     };
