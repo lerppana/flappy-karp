@@ -10,15 +10,15 @@ namespace lerppana::flappykarp::systems
         bottom
     };
 
-    struct infinite_scroller : core::system
+    struct [[le::system]] infinite_scroller : core::system
     {
         // todo replace this with enabled state in system
         bool enabled = true;
 
-        explicit infinite_scroller(
-                std::shared_ptr<resource::resource_loader> resource_loader) :
-                resource_loader(std::move(resource_loader))
-        {}
+        explicit infinite_scroller(std::shared_ptr<resource::resource_loader> resource_loader) :
+            resource_loader(std::move(resource_loader))
+        {
+        }
 
         void reset_system(core::scene& scene);
 
@@ -26,7 +26,7 @@ namespace lerppana::flappykarp::systems
 
         void started(core::scene& scene) final;
 
-    private:
+      private:
         std::shared_ptr<resource::resource_loader> resource_loader;
 
         uint32_t pipe_column_count = 5u;
@@ -37,10 +37,10 @@ namespace lerppana::flappykarp::systems
         void m_generate_pipes(core::scene& scene);
 
         void m_set_pipe_position(
-                component::transform& transform,
-                uint32_t i,
-                pipe_direction direction,
-                float y_offset,
-                component::physics_3d& physics);
+            component::transform& transform,
+            uint32_t i,
+            pipe_direction direction,
+            float y_offset,
+            component::physics_3d& physics);
     };
 }

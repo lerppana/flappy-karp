@@ -22,11 +22,6 @@
 #include <vk/font_manager.hpp>
 #include <vk/imgui_context.hpp>
 
-// editor
-#if ENGINE_ENABLE_EDITOR
-    #include <editor/tag_editor.hpp>
-#endif
-
 // 3rd party
 #include <Hypodermic/Container.h>
 #include <SDL2/SDL_keycode.h>

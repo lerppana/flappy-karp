@@ -13,7 +13,7 @@ namespace lerppana::flappykarp::scenes
         running
     };
 
-    struct FLAPPYKARP_EXPORT game : core::scene
+    struct [[le::scene]] FLAPPYKARP_EXPORT game : core::scene
     {
         explicit game(
             std::shared_ptr<vk::font_manager> font_manager,

@@ -133,7 +133,7 @@
                 },
                 "dl": {
                     "ac": [
-                        0.6999,
+                        0.6998,
                         0.6998,
                         1.0
                     ],
@@ -153,11 +153,14 @@
                     "smo": 0.0,
                     "csl": 0.0,
                     "opt": [
-                        0.3000000119,
-                        6.0,
+                        0.5,
+                        2.0,
                         0.0099999997,
                         1.0
-                    ]
+                    ],
+                    "nc": 40.0,
+                    "fc": 50.0,
+                    "cc": 1
                 }
             }
         },
@@ -221,7 +224,6 @@
                 },
                 "scrollable": {
                     "speed": 2.0,
-                    "reset_distance": 40.0,
                     "create_offset": 80.0,
                     "reset_x_offset": 40.0
                 }
@@ -287,7 +289,6 @@
                 },
                 "scrollable": {
                     "speed": 2.0,
-                    "reset_distance": 40.0,
                     "create_offset": 80.0,
                     "reset_x_offset": 40.0
                 }
@@ -330,7 +331,6 @@
                 },
                 "scrollable": {
                     "speed": 0.5,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -343,7 +343,7 @@
                     "p": [
                         26.1741,
                         -17.5771,
-                        70.1244
+                        70.124
                     ],
                     "r": [
                         1.0,
@@ -373,7 +373,6 @@
                 },
                 "scrollable": {
                     "speed": 0.05,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -416,7 +415,6 @@
                 },
                 "scrollable": {
                     "speed": 0.1,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -459,7 +457,6 @@
                 },
                 "scrollable": {
                     "speed": 0.002,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -502,7 +499,6 @@
                 },
                 "scrollable": {
                     "speed": 0.1,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -545,7 +541,6 @@
                 },
                 "scrollable": {
                     "speed": 0.5,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }
@@ -588,7 +583,6 @@
                 },
                 "scrollable": {
                     "speed": 0.05,
-                    "reset_distance": 2.0,
                     "create_offset": 140.0,
                     "reset_x_offset": 70.0
                 }

@@ -4,7 +4,7 @@
 
 namespace lerppana::flappykarp::scenes
 {
-    struct FLAPPYKARP_EXPORT load : engine::core::scene
+    struct [[le::scene]] FLAPPYKARP_EXPORT load : engine::core::scene
     {
         explicit load(
                 std::shared_ptr<resource::resource_loader> resource_loader,
